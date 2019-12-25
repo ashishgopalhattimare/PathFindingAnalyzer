@@ -87,10 +87,9 @@ public class Depth_First extends ShortestPath {
         grid[src.i][src.j] = Constants.shortest;
 
         pathList.add(src);
-
         DFS(src, des, pathList, 0);
-        Constants.currentThread = null;
 
-        System.out.println("Thread end");
+        Constants.currentThread = null;
+        System.out.println("Thrd end");
     }
 }

@@ -27,8 +27,8 @@ public class Breadth_First extends ShortestPath {
 
         try {
             while(!queue.isEmpty() && !pathFound && runThread) {
-                arrayList = queue.poll();
 
+                arrayList = queue.poll();
                 curr = (Point) arrayList.get(arrayList.size() - 1);
 
                 if (!samePoint(src, curr)) // Ignore the source node
@@ -57,10 +57,11 @@ public class Breadth_First extends ShortestPath {
                 }
                 Thread.sleep(Constants.SLEEP_TIME);
             }
-            Constants.currentThread = null;
         }
         catch (Exception ignored) {}
 
-        System.out.println("Thread end");
+        while(!queue.isEmpty()) queue.poll();
+        Constants.currentThread = null;
+        System.out.println("Thrd end");
     }
 }

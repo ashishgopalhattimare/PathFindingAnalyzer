@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sample.Algorithms.A_Search;
 import sample.Algorithms.Breadth_First;
 import sample.Algorithms.Depth_First;
 import sample.Constant.Point;
@@ -67,6 +68,7 @@ public class MazeController implements Initializable {
 
         pane.setOnMouseEntered(event -> {
             if(curState == State.WALL) {
+                // NEED TO WORK ON THIS FUNCTION
                 if(MazeController.Grid[i][j] != Constants.source && MazeController.Grid[i][j] != Constants.target) {
                     if(applyColor) {
                         pane.setStyle("-fx-border-color: " + Constants.BORDER + "; -fx-background-color: " + Constants.WALL + ";");
@@ -177,7 +179,8 @@ public class MazeController implements Initializable {
         for(int i = 0; i < 3; i++) currSD[i][0] = -1;
 
         algoOptions.getItems().addAll("Breadth First Search", "Depth First Search",
-                "Intermediate Shortest Path");
+                "Intermediate Shortest Path", "A* Algorithm");
+
         algoOptions.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -222,9 +225,11 @@ public class MazeController implements Initializable {
 
                 switch(algoIndex) {
                     case 0: algo = new Breadth_First();
-                        break;
+                            break;
                     case 1: algo = new Depth_First();
-                        break;
+                            break;
+                    case 3: algo = new A_Search();
+                            break;
                 }
                 if(algo != null)
                 {

@@ -6,7 +6,8 @@ public class Intermediate extends ShortestPath {
 
     @Override
     public void algorithm(int [][] grid, Point src, Point des) {
-        ShortestPath.grid = grid; this.src = src; this.des = des;
+        this.src = src; this.des = des;
+        ShortestPath.grid = grid;
     }
 
     @Override
