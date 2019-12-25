@@ -1,25 +1,15 @@
 package sample.Algorithms;
 
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import sample.Constant.Constants;
 import sample.Constant.Point;
 import sample.MazeController;
 
-import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public abstract class ShortestPath extends Thread {
 
-    public static int[] X = {1,0,-1,0};
-    public static int[] Y = {0,1,0,-1};
+    public static int[] Y = {-1,0,1, 0,-1,-1,1, 1};
+    public static int[] X = { 0,1,0,-1,-1, 1,1,-1};
 
     protected static int [][] grid;
     protected Point src;
@@ -27,8 +17,8 @@ public abstract class ShortestPath extends Thread {
     protected boolean runThread;
     protected boolean pathFound;
 
-    public boolean inRange(int x, int limit) {
-        return x >= 0 && x < limit;
+    public boolean inRange(int r, int c) {
+        return (r >= 0 && r < Constants.ROW) && (c >= 0 && c < Constants.COL);
     }
 
     public abstract void algorithm(int [][] grid, Point src, Point des);
@@ -61,7 +51,9 @@ public abstract class ShortestPath extends Thread {
     }
 
     public void killThread() {
-        runThread = false;
-        pathFound = true;
+        System.out.println("Kill thread");
+
+        runThread=false;pathFound=true;
+        this.interrupt();
     }
 }

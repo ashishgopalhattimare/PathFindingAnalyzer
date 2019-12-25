@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -61,7 +62,7 @@
                                     <Insets bottom="5.0" left="5.0" top="5.0" />
                                  </FlowPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="intermediateButton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#intermediateActionEvent" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: white;" text="Add Bomb">
+                              <JFXButton fx:id="intermediateButton" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" mnemonicParsing="false" onAction="#intermediateActionEvent" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: white;" text="Add Bomb">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -113,6 +114,17 @@
                                     <Insets left="3.0" />
                                  </FlowPane.margin>
                               </JFXButton>
+                              <JFXCheckBox fx:id="diagonalCheckBox" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: white; -fx-background-radius: 4;" text="Diagonal Traversal">
+                                 <FlowPane.margin>
+                                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                                 </FlowPane.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </JFXCheckBox>
                            </children>
                         </FlowPane>
                      </children>
@@ -150,7 +162,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </FlowPane.margin>
                         </JFXButton>
-                        <JFXButton mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" style="-fx-border-radius: 4; -fx-border-color: black; -fx-background-color: white;" text="Visited Nodes">
+                        <JFXButton alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" style="-fx-border-radius: 4; -fx-border-color: black; -fx-background-color: white;" text="Visited Nodes">
                            <FlowPane.margin>
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </FlowPane.margin>
@@ -167,7 +179,7 @@
                               </HBox>
                            </graphic>
                         </JFXButton>
-                        <JFXButton mnemonicParsing="false" prefHeight="35.0" prefWidth="115.0" style="-fx-border-radius: 4; -fx-border-color: black; -fx-background-color: white;" text="Shortest Path">
+                        <JFXButton disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="115.0" style="-fx-border-radius: 4; -fx-border-color: black; -fx-background-color: white;" text="Shortest Path">
                            <graphic>
                               <Pane prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: yellow;" />
                            </graphic>

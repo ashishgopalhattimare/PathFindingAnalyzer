@@ -34,13 +34,12 @@ public class Breadth_First extends ShortestPath {
                 if (!samePoint(src, curr)) // Ignore the source node
                     MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
 
-                for (int k = 0; k < 4 && !pathFound; k++) {
-                    if (inRange(curr.i + Y[k], Constants.ROW) && inRange(curr.j + X[k], Constants.COL) &&
-                            grid[curr.i + Y[k]][curr.j + X[k]] == Constants.unvisit ) {
+                for (int k = 0; k < Constants.TRAVERSAL_LEN && !pathFound; k++) {
+                    if (inRange(curr.i + Y[k], curr.j + X[k]) && grid[curr.i + Y[k]][curr.j + X[k]] == Constants.unvisit ) {
 
                         Point temp = new Point(curr.i + Y[k], curr.j + X[k]);
 
-                        if (!samePoint(des, temp)) { // next possible visit for BSF
+                        if (!samePoint(temp, des)) { // next possible visit for BSF
                             MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
                         }
                         else { // destination reached
@@ -61,5 +60,7 @@ public class Breadth_First extends ShortestPath {
             Constants.currentThread = null;
         }
         catch (Exception ignored) {}
+
+        System.out.println("Thread end");
     }
 }

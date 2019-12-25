@@ -13,7 +13,7 @@ public class Depth_First extends ShortestPath {
 
     private static int [][] pathLen = new int[Constants.ROW][Constants.COL];
 
-    private ArrayList<Point> prevpath = null;
+    private ArrayList<Point> prevPath = null;
     int shortestPath;
 
     @Override
@@ -42,8 +42,8 @@ public class Depth_First extends ShortestPath {
 
         pathLen[curr.i][curr.j] = len; // update shortest len path
 
-        for (int k = 0; k < 4 && runThread && pathList.size() < shortestPath; k++) {
-            if (inRange(curr.i + Y[k], Constants.ROW) && inRange(curr.j + X[k], Constants.COL) && grid[curr.i + Y[k]][curr.j + X[k]] != Constants.wall)
+        for (int k = 0; k < Constants.TRAVERSAL_LEN && runThread && pathList.size() < shortestPath; k++) {
+            if (inRange(curr.i + Y[k], curr.j + X[k]) && grid[curr.i + Y[k]][curr.j + X[k]] != Constants.wall)
             {
                 if((pathLen[curr.i + Y[k]][curr.j + X[k]] > len && COMPLETE_DEPTHFIRST) || (grid[curr.i + Y[k]][curr.j + X[k]] == Constants.unvisit))
                 {
@@ -61,12 +61,12 @@ public class Depth_First extends ShortestPath {
                     else { // destination reached, check if path is shortest
                         if(pathList.size() < shortestPath)
                         {
-                            if(prevpath != null) {
-                                colorPath(prevpath, Constants.VISITED, false);
+                            if(prevPath != null) {
+                                colorPath(prevPath, Constants.VISITED, false);
                             }
 
-                            prevpath = new ArrayList<>(pathList);
-                            colorPath(prevpath, Constants.SHORTEST, true);
+                            prevPath = new ArrayList<>(pathList);
+                            colorPath(prevPath, Constants.SHORTEST, true);
 
                             shortestPath = pathList.size();
                         }
@@ -90,5 +90,7 @@ public class Depth_First extends ShortestPath {
 
         DFS(src, des, pathList, 0);
         Constants.currentThread = null;
+
+        System.out.println("Thread end");
     }
 }

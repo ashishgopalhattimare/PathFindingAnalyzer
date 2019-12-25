@@ -11,7 +11,7 @@ public class ReadWrite {
 
     private ReadWrite() {}
 
-    public static boolean save(String path) {
+    public static void save(String path) {
         try {
             FileWriter fw = new FileWriter(path);
 
@@ -27,19 +27,17 @@ public class ReadWrite {
                 if(i != Constants.ROW-1) sb.append("\n");
             }
 
-            if(!possibleSave) {
-                fw.close();
-                File file = new File(path);
-                file.delete();
+            if(!possibleSave) { // the maze is not saved, delete the file, and close the FileWriter
+                fw.close(); File file = new File(path);
+                file.delete(); // delete the file if the file is empty
 
-                return false;
+                return;
             }
 
             fw.write(sb.toString());
             fw.close();
         }
         catch (Exception ignored) { }
-        return false;
     }
 
     public static ArrayList<Point> read(String path)

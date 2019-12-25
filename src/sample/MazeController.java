@@ -1,6 +1,7 @@
 package sample;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -38,6 +39,8 @@ public class MazeController implements Initializable {
                         targetButton, drawButton, saveButton, loadButton, cancelButton;
     @FXML
     private JFXButton   visualButton;
+    @FXML
+    private JFXCheckBox diagonalCheckBox;
 
     public enum State { UNVISITED, WALL, SOURCE, TARGET, INTERMEDIATE }
     private State curState;
@@ -88,8 +91,6 @@ public class MazeController implements Initializable {
                     unvisitPreviousBlock(0);
                     PaintBlock(i, j, Constants.BORDER, Constants.SOURCE);
                     currSD[0][0] = i; currSD[0][1] = j;
-
-                    Grid[i][j] = Constants.source;
                 }
             }
             else if(curState == State.TARGET) {
@@ -97,8 +98,6 @@ public class MazeController implements Initializable {
                     unvisitPreviousBlock(1);
                     PaintBlock(i, j, Constants.BORDER, Constants.TARGET);
                     currSD[1][0] = i; currSD[1][1] = j;
-
-                    Grid[i][j] = Constants.target;
                 }
             }
             else if(curState == State.INTERMEDIATE) {
@@ -194,42 +193,53 @@ public class MazeController implements Initializable {
     }
 
     private void updateGrid() {
+
         for(int i = 0; i < Constants.ROW; i++) {
             for (int j = 0; j < Constants.COL; j++) {
                 if(Grid[i][j] != Constants.wall) {
+                    PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
                     Grid[i][j] = Constants.unvisit;
                 }
             }
         }
+
+        PaintBlock(currSD[0][0], currSD[0][1], Constants.BORDER, Constants.SOURCE);
+        PaintBlock(currSD[1][0], currSD[1][1], Constants.BORDER, Constants.TARGET);
     }
 
     @FXML void visualActionEvent(ActionEvent event) {
 
         // If both the source and destination points are given
         applyColor = false;
-        if(currSD[0][0] != -1 && currSD[1][0] != -1 && algoIndex != -1) {
+        if(Constants.currentThread == null) {
+            if(currSD[0][0] != -1 && currSD[1][0] != -1 && algoIndex != -1) {
 
-            ShortestPath algo = null;
-            updateGrid();
+                ShortestPath algo = null;
+                updateGrid();
 
-            switch(algoIndex) {
-                case 0: algo = new Breadth_First();
+                if(diagonalCheckBox.isSelected()) Constants.TRAVERSAL_LEN = Constants.DIAGONAL;
+                else Constants.TRAVERSAL_LEN = Constants.NON_DIAGONAL;
+
+                switch(algoIndex) {
+                    case 0: algo = new Breadth_First();
                         break;
-                case 1: algo = new Depth_First();
+                    case 1: algo = new Depth_First();
                         break;
-            }
-            if(algo != null)
-            {
-                Constants.currentThread = algo;
+                }
+                if(algo != null)
+                {
+                    Constants.currentThread = algo;
 
-                algo.algorithm(Grid,new Point(currSD[0][0], currSD[0][1]), new Point(currSD[1][0], currSD[1][1]));
-                algo.start();
-            }
-            saveButton.setDisable(true); drawButton.setDisable(true); loadButton.setDisable(true);
-            sourceButton.setDisable(true); targetButton.setDisable(true);
-            buttonStateChange(true);
+                    algo.algorithm(Grid,new Point(currSD[0][0], currSD[0][1]), new Point(currSD[1][0], currSD[1][1]));
+                    algo.start();
+                }
 
-            cancelButton.setDisable(false);
+                saveButton.setDisable(true); drawButton.setDisable(true); loadButton.setDisable(true);
+                sourceButton.setDisable(true); targetButton.setDisable(true);
+                buttonStateChange(true);
+
+                cancelButton.setDisable(false);
+            }
         }
     }
 
@@ -302,6 +312,7 @@ public class MazeController implements Initializable {
     @FXML void cancelMazeActionEvent(ActionEvent event) {
 
         if(Constants.currentThread != null) Constants.currentThread.killThread();
+        Constants.currentThread = null;
 
         applyColor = false;
 
