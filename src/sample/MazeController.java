@@ -9,10 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.ToggleSwitch;
 import sample.Algorithms.A_Search;
 import sample.Algorithms.Breadth_First;
 import sample.Algorithms.Depth_First;
@@ -20,7 +22,6 @@ import sample.Constant.CellState;
 import sample.Constant.Cell;
 import sample.Algorithms.ShortestPath;
 import sample.Constant.Constants;
-import sample.Constant.Point;
 import sample.File.ReadWrite;
 
 import java.io.File;
@@ -33,8 +34,12 @@ public class MazeController implements Initializable {
 
     @FXML
     private GridPane platform;
+    public static GridPane gp;
+
     @FXML
     private ComboBox<String> algoOptions;
+    @FXML
+    private ToggleSwitch updateBorder;
 
     @FXML
     private JFXButton   clearButton, intermediateButton, pathButton, mazeButton, sourceButton,
@@ -46,7 +51,12 @@ public class MazeController implements Initializable {
     @FXML
     private JFXCheckBox dfsCheckBox;
     @FXML
-    private Label       statusLabel;
+    private FlowPane labelPanel;
+    @FXML
+    private JFXButton minimizeButton;
+    @FXML
+    private JFXButton closeButton;
+
     public static Label StatusLabel;
 
     private CellState curState;
@@ -185,9 +195,26 @@ public class MazeController implements Initializable {
         }
     }
 
+    public static void UpdateBorder(String color) {
+        if(Constants.UPDATE_BORDER) {
+            gp.setStyle("-fx-border-color: " + color);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        StatusLabel = statusLabel;
+
+        platform.setStyle("-fx-border-color: " + Constants.WALL);
+        gp = platform;
+
+        minimizeButton.setOnAction(event -> {
+            Stage stage = (Stage) minimizeButton.getScene().getWindow();
+            stage.setIconified(true);
+        });
+        closeButton.setOnAction(event -> {
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+        });
 
         for(int i = 0; i < Constants.ROW; i++) {
             for(int j = 0; j < Constants.COL; j++) {
@@ -243,11 +270,6 @@ public class MazeController implements Initializable {
         Grid[currSD[1][0]][currSD[1][1]].state = CellState.TARGET;
     }
 
-    public static void UpdateLabel(String text)
-    {
-        StatusLabel.setText(text);
-    }
-
     @FXML void visualActionEvent(ActionEvent event) {
 
         // If both the source and destination points are given
@@ -256,7 +278,10 @@ public class MazeController implements Initializable {
             if(currSD[0][0] != -1 && currSD[1][0] != -1 && algoIndex != -1) {
 
                 ShortestPath algo = null;
-                updateGrid(); // Update the Grid to the initial State
+                updateGrid();
+
+                Constants.UPDATE_BORDER = updateBorder.isSelected();
+                UpdateBorder(Constants.WALL);
 
                 if(diagonalCheckBox.isSelected()) Constants.TRAVERSAL_LEN = Constants.DIAGONAL;
                 else Constants.TRAVERSAL_LEN = Constants.NON_DIAGONAL;
@@ -358,6 +383,8 @@ public class MazeController implements Initializable {
 
         if(Constants.currentThread != null) Constants.currentThread.killThread();
         Constants.currentThread = null;
+
+        UpdateBorder(Constants.WALL);
 
         applyColor = false;
 

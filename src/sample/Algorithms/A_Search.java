@@ -17,9 +17,9 @@ public class A_Search extends ShortestPath {
     @Override
     public void algorithm(Cell src, Cell des) {
         this.src = src; this.des = des;
-        pathFound = false; runThread = true;
 
         this.shortestPath = Integer.MAX_VALUE;
+        pathFound = false; runThread = true;
     }
 
     @Override
@@ -73,14 +73,13 @@ public class A_Search extends ShortestPath {
             }
         }
         catch (Exception ignored) {}
-
-        System.out.println("Return A* Algorithm Thread");
-        Constants.currentThread = null;
-
-        if(!pathFound) MazeController.UpdateLabel("A* > No path found");
-        else {
-            MazeController.UpdateLabel("Shortest Path : " + shortestPath);
+        finally {
+            while(!pq.isEmpty()) pq.poll();
         }
+
+        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
+        Constants.currentThread = null;
+        System.out.println("Return A* Search Algorithm Thread");
     }
 
     public void tracePath(Cell temp) {
@@ -91,10 +90,7 @@ public class A_Search extends ShortestPath {
             shortestPath.addFirst(temp);
             temp = MazeController.Grid[temp.p_i][temp.p_j];
         }
-
         prevPath = shortestPath;
-
-        System.out.println("Color Path");
         colorPath(shortestPath, Constants.SHORTEST, true);
     }
 }

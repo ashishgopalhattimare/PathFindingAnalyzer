@@ -54,9 +54,7 @@ public class Breadth_First extends ShortestPath {
                             else { // destination reached
                                 tracePath(temp); // TracePath of the Destination Node and print its path, Target node is not saved
 
-                                System.out.println("Shortest BFS Path Found");
                                 shortestPath = temp.distance;
-
                                 pathFound = true;
                                 break;
                             }
@@ -70,15 +68,12 @@ public class Breadth_First extends ShortestPath {
             }
         }
         catch (Exception ignored) {}
-
-        while(!queue.isEmpty()) queue.poll();
-        Constants.currentThread = null;
-
-        if(!pathFound) MazeController.UpdateLabel("BFS > No path found");
-        else {
-            MazeController.UpdateLabel("Shortest Path : " + shortestPath);
+        finally {
+            while(!queue.isEmpty()) queue.poll();
         }
 
+        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
+        Constants.currentThread = null;
         System.out.println("Return Breadth-First Search Algorithm Thread");
     }
 }

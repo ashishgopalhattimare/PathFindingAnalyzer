@@ -35,6 +35,7 @@ public class Constants
     public static int TRAVERSAL_LEN;
 
     public static boolean DFX_EXHAUSTIVE;
+    public static boolean UPDATE_BORDER;
 
     public static ShortestPath currentThread;
 

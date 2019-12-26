@@ -79,8 +79,6 @@ public class Depth_First extends ShortestPath {
             temp = MazeController.Grid[temp.p_i][temp.p_j];
         }
         prevPath = shortestPath;
-
-        System.out.println("Color Path");
         colorPath(shortestPath, Constants.SHORTEST, true);
     }
 
@@ -90,13 +88,8 @@ public class Depth_First extends ShortestPath {
         src.distance = 0;
         DFS(src);
 
+        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
         Constants.currentThread = null;
-
-        if(!pathFound) MazeController.UpdateLabel("DFS > No path found");
-        else {
-            MazeController.UpdateLabel("Shortest Path : " + shortestPath);
-        }
-
         System.out.println("Return Depth-First Search Algorithm Thread");
     }
 }
