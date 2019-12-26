@@ -12,24 +12,9 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("maze.fxml"));
-
-        root.setOnMousePressed((MouseEvent event) ->
-        {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-
-        root.setOnMouseDragged((MouseEvent event) ->
-        {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
+        Parent root = FXMLLoader.load(getClass().getResource("tutorial.fxml"));
 
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("PathFinder Analyzer");

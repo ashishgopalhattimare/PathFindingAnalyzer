@@ -5,12 +5,20 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Tutorial">
+<AnchorPane prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TutorialController">
    <children>
-      <AnchorPane layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+      <AnchorPane layoutY="490.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: white;">
+         <children>
+            <JFXButton fx:id="previousButton" layoutX="247.0" layoutY="10.0" prefHeight="30.0" prefWidth="75.0" style="-fx-border-color: black; -fx-background-color: #1bcc5c; -fx-border-radius: 4;" text="Previous" />
+            <JFXButton fx:id="nextButton" layoutX="332.0" layoutY="10.0" prefHeight="30.0" prefWidth="58.0" style="-fx-border-color: black; -fx-background-color: #1bcc5c; -fx-border-radius: 4;" text="Next" />
+            <JFXButton fx:id="skipButton" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="92.0" style="-fx-border-color: black; -fx-background-color: #1bcc5c; -fx-border-radius: 4;" text="Skip Tutorial" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="page0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Welcome to PathFinder" textAlignment="CENTER">
                <font>
@@ -41,7 +49,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="page1" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="What are PathFinding" textAlignment="CENTER">
                <font>
@@ -87,7 +95,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="page2" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Picking an Algorithm" textAlignment="CENTER">
                <font>
@@ -105,25 +113,104 @@
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="153.0" prefHeight="19.0" prefWidth="335.0" text="Different algorithms provides different Time Complexity" textAlignment="CENTER" />
-            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="161.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="152.0" fitWidth="192.0" layoutX="107.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/logoxl.png" />
+                  <Image url="@../images/algorithms.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="187.0" prefHeight="19.0" prefWidth="335.0" text="Some works better on weighted edges, while some works" textAlignment="CENTER" />
-            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="34.0" layoutY="206.0" prefHeight="19.0" prefWidth="335.0" text="on unweighted edges." textAlignment="CENTER" />
-            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="34.0" layoutY="236.0" prefHeight="19.0" prefWidth="335.0" text="Not all algorithms guarantee the shortest path." textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="34.0" layoutY="172.0" prefHeight="19.0" prefWidth="335.0" text="Some works better on weighted edges, while some works" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="34.0" layoutY="191.0" prefHeight="19.0" prefWidth="335.0" text="on unweighted edges." textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="35.0" layoutY="226.0" prefHeight="19.0" prefWidth="335.0" text="Not all algorithms guarantee the shortest path." textAlignment="CENTER">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="490.0" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="page3" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
-            <JFXButton layoutX="247.0" layoutY="10.0" prefHeight="30.0" prefWidth="75.0" style="-fx-border-color: black; -fx-background-color: green; -fx-border-radius: 4;" text="Previous" />
-            <JFXButton layoutX="332.0" layoutY="10.0" prefHeight="30.0" prefWidth="58.0" style="-fx-border-color: black; -fx-background-color: green; -fx-border-radius: 4;" text="Next" />
-            <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="92.0" style="-fx-border-color: black; -fx-background-color: green; -fx-border-radius: 4;" text="Skip Tutorial" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Meet the Algorithms" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="Not all algorithms are equally treated by the Community" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <FlowPane layoutX="33.0" layoutY="112.0" prefHeight="42.0" prefWidth="335.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="19.0" prefWidth="335.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text="Breadth-First Search" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text=" (unweighted) : a great algorithm;" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="guarantees the shortest path." textAlignment="CENTER" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="33.0" layoutY="161.0" prefHeight="42.0" prefWidth="335.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="19.0" prefWidth="335.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text="Depth-First Search" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text=" (unweighted) : a very ineffcient" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="algorithm for path-finding; does not guarantee shortest path." textAlignment="CENTER" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="33.0" layoutY="210.0" prefHeight="42.0" prefWidth="335.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="19.0" prefWidth="335.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text="A* Search" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text=" (weighted) : arguably the best path-finding" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="algorithm; uses heuristics to guarantee the shortest path much" textAlignment="CENTER" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="faster than Dijkstra's Algorithm." textAlignment="CENTER" />
+               </children>
+            </FlowPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="page4" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Enjoy!" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="I hope you have just as much playing around with the" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="88.0" prefHeight="20.0" prefWidth="335.0" text="visualizing tool as I had building it!" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="153.0" prefHeight="19.0" prefWidth="335.0" text="If you want to see the source code of this application," textAlignment="CENTER" />
+            <HBox layoutX="149.0" layoutY="172.0" prefHeight="19.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text="check out my" textAlignment="CENTER" />
+                  <Label fx:id="github" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text=" github." textAlignment="CENTER" textFill="#1bcc5c" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </children>
