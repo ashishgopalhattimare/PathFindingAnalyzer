@@ -1,22 +1,22 @@
 package sample.Algorithms;
 
+import sample.Constant.CellState;
 import sample.Constant.Constants;
-import sample.Constant.Point;
+import sample.Constant.Cell;
 import sample.MazeController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class A_Search extends ShortestPath {
 
-    private ArrayList<Point> prevPath = null;
+    private LinkedList<Cell> prevPath = null;
     public int shortestPath;
 
     @Override
-    public void algorithm(int[][] grid, Point src, Point des) {
-        ShortestPath.grid = grid; this.src = src; this.des = des;
+    public void algorithm(Cell src, Cell des) {
+        this.src = src; this.des = des;
         pathFound = false; runThread = true;
 
         this.shortestPath = Integer.MAX_VALUE;
@@ -25,49 +25,47 @@ public class A_Search extends ShortestPath {
     @Override
     public void run() {
 
-        PriorityQueue<ArrayList<Point>> pq = new PriorityQueue<ArrayList<Point>>(new ComparePoint(des));
-        Point curr;
+        PriorityQueue<Cell> pq = new PriorityQueue<Cell>(new ComparePoint(des));
+        Cell curr, temp;
 
-        grid[src.i][src.j] = Constants.visit;
-
-        ArrayList pathList = new ArrayList<>(Arrays.asList(src));
-        pq.add(pathList);
+        src.distance = 0;
+        pq.add(src);
 
         try {
             while (!pq.isEmpty() && !pathFound && runThread) {
 
-                pathList = pq.poll();
+                curr = pq.poll();
 
-                if(pathList.size() < shortestPath) // if the current front node can be better than the previous one
+                // The distance of the last element in the array should be
+                // used to check that array's validity
+                if(curr.distance + 1 < shortestPath) // if the current front node can be better than the previous one
                 {
-                    curr = (Point) pathList.get(pathList.size() - 1);
-
                     if (!samePoint(src, curr)) // Ignore the source node
                         MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
 
-                    for (int k = 0; k < Constants.TRAVERSAL_LEN && !pathFound; k++) {
-                        if (inRange(curr.i + Y[k], curr.j + X[k]) && grid[curr.i + Y[k]][curr.j + X[k]] == Constants.unvisit ) {
+                    for (int k = 0; k < Constants.TRAVERSAL_LEN; k++) {
+                        if (inRange(curr.i + Y[k], curr.j + X[k])) {
 
-                            Point temp = new Point(curr.i + Y[k], curr.j + X[k]);
+                            temp = MazeController.Grid[curr.i + Y[k]][curr.j + X[k]];
 
-                            if (!samePoint(temp, des)) { // next possible visit for BSF
-                                MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
-                            }
-                            else { // destination reached
+                            if(curr.distance + 1 < temp.distance)
+                            {
+                                temp.distance = curr.distance + 1;
+                                temp.setParent(curr.i, curr.j);
 
-                                if(prevPath != null) {
-                                    colorPath(prevPath, Constants.VISITED, false);
+                                if (!samePoint(temp, des)) { // next possible visit for BSF
+                                    MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
+                                    pq.add(temp);
                                 }
+                                else { // IF THE TARGET IS REACHED
+                                    if(prevPath != null) {
+                                        colorPath(prevPath, Constants.VISITED, false);
+                                    }
 
-                                colorPath(pathList, Constants.SHORTEST, true);
-                                shortestPath = pathList.size();
+                                    shortestPath = temp.distance;
+                                    tracePath(temp);
+                                }
                             }
-
-                            grid[temp.i][temp.j] = Constants.visit;
-
-                            ArrayList<Point> xArrayList = (ArrayList<Point>) pathList.clone();
-                            xArrayList.add(temp);
-                            pq.add(xArrayList);
                         }
                     }
                     Thread.sleep(Constants.SLEEP_TIME);
@@ -76,27 +74,39 @@ public class A_Search extends ShortestPath {
         }
         catch (Exception ignored) {}
 
+        System.out.println("Return A* Algorithm Thread");
         Constants.currentThread = null;
-        System.out.println("Thrd end");
+    }
+
+    public void tracePath(Cell temp) {
+
+        LinkedList<Cell> shortestPath = new LinkedList<>();
+        while (temp.state != CellState.SOURCE) {
+
+            shortestPath.addFirst(temp);
+            temp = MazeController.Grid[temp.p_i][temp.p_j];
+        }
+
+        prevPath = shortestPath;
+
+        System.out.println("Color Path");
+        colorPath(shortestPath, Constants.SHORTEST, true);
     }
 }
 
-class ComparePoint implements Comparator<ArrayList<Point>> {
+class ComparePoint implements Comparator<Cell> {
 
-    public static Point dest;
+    public static Cell dest;
 
-    public ComparePoint(Point dest) {
+    public ComparePoint(Cell dest) {
         ComparePoint.dest = dest;
     }
 
     @Override
-    public int compare(ArrayList<Point> pr1, ArrayList<Point> pr2) {
+    public int compare(Cell cell1, Cell cell2) {
 
-        Point point1 = pr1.get(pr1.size()-1);
-        Point point2 = pr2.get(pr2.size()-1);
-
-        long dest1 = calculateHValue(point1);
-        long dest2 = calculateHValue(point2);
+        long dest1 = calculateHValue(cell1);
+        long dest2 = calculateHValue(cell2);
 
         if(dest1 == dest2) return 0;
         else if(dest1 < dest2)
@@ -106,7 +116,7 @@ class ComparePoint implements Comparator<ArrayList<Point>> {
 
     // No need to do the square root as both are getting square root
     // if A > B => sqrt(A) > sqrt(B)
-    public long calculateHValue(Point curr) {
+    public long calculateHValue(Cell curr) {
         return (long) (Math.pow(curr.i-dest.i,2) + Math.pow(curr.j-dest.j,2));
     }
 }

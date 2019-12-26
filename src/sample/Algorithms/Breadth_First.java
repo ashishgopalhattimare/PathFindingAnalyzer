@@ -1,6 +1,8 @@
 package sample.Algorithms;
 
+import sample.Constant.CellState;
 import sample.Constant.Constants;
+import sample.Constant.Cell;
 import sample.Constant.Point;
 import sample.MazeController;
 
@@ -9,50 +11,59 @@ import java.util.*;
 public class Breadth_First extends ShortestPath {
 
     @Override
-    public void algorithm(int [][] grid, Point src, Point des) {
-        ShortestPath.grid = grid; this.src = src; this.des = des;
+    public void algorithm(Cell src, Cell des) {
+        this.src = src;
+        this.des = des;
+
+        shortestPath = Integer.MAX_VALUE;
         pathFound = false; runThread = true;
     }
 
     @Override
     public void run() {
 
-        Queue<ArrayList<Point>> queue = new LinkedList<>();
-        Point curr;
+        Queue<Cell> queue = new LinkedList<>();
+        Cell curr, temp;
 
-        grid[src.i][src.j] = Constants.visit;
-
-        ArrayList arrayList = new ArrayList<>(Arrays.asList(src));
-        queue.add(arrayList);
+        src.distance = 0;
+        queue.add(src);
 
         try {
             while(!queue.isEmpty() && !pathFound && runThread) {
 
-                arrayList = queue.poll();
-                curr = (Point) arrayList.get(arrayList.size() - 1);
+                curr = queue.poll();
 
-                if (!samePoint(src, curr)) // Ignore the source node
+                if(curr.state != CellState.SOURCE)
                     MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
 
                 for (int k = 0; k < Constants.TRAVERSAL_LEN && !pathFound; k++) {
-                    if (inRange(curr.i + Y[k], curr.j + X[k]) && grid[curr.i + Y[k]][curr.j + X[k]] == Constants.unvisit ) {
 
-                        Point temp = new Point(curr.i + Y[k], curr.j + X[k]);
+                    if (inRange(curr.i+Y[k], curr.j+X[k])) {
 
-                        if (!samePoint(temp, des)) { // next possible visit for BSF
-                            MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
+                        temp = MazeController.Grid[curr.i+Y[k]][curr.j+X[k]];
+
+                        if(temp.state == CellState.UNVISITED || temp.state == CellState.TARGET)
+                        {
+                            temp.distance = curr.distance + 1;
+                            temp.setParent(curr.i, curr.j);
+
+                            if(temp.state != CellState.TARGET)
+                            {
+                                MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
+                            }
+                            else { // destination reached
+                                tracePath(temp); // TracePath of the Destination Node and print its path, Target node is not saved
+
+                                System.out.println("Shortest BFS Path Found");
+                                shortestPath = temp.distance;
+
+                                pathFound = true;
+                                break;
+                            }
+
+                            MazeController.Grid[temp.i][temp.j].state = CellState.VISITED;
+                            queue.add(temp);
                         }
-                        else { // destination reached
-                            colorPath(arrayList, Constants.SHORTEST, true);
-                            pathFound = true;
-                            break;
-                        }
-
-                        grid[temp.i][temp.j] = Constants.visit;
-
-                        ArrayList<Point> xArrayList = (ArrayList<Point>) arrayList.clone();
-                        xArrayList.add(temp);
-                        queue.add(xArrayList);
                     }
                 }
                 Thread.sleep(Constants.SLEEP_TIME);
@@ -62,6 +73,7 @@ public class Breadth_First extends ShortestPath {
 
         while(!queue.isEmpty()) queue.poll();
         Constants.currentThread = null;
-        System.out.println("Thrd end");
+
+        System.out.println("Return Breadth-First Search Algorithm Thread");
     }
 }

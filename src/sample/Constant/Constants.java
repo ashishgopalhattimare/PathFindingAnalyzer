@@ -6,13 +6,8 @@ public class Constants
 {
     public static int ROW = 40, COL = 80;
 
-    public static final int unvisit = 0;
-    public static final int visit = 1;
-    public static final int wall = 2;
-    public static final int shortest = 4;
-    public static final int intermediate = 3;
-    public static final int target = 5;
-    public static final int source = 6;
+    public static final int WALL_WEIGHT = -1;
+    public static final int UNVISITED_WEIGHT = Integer.MAX_VALUE;
 
     public static final String BORDER       = "black";
     public static final String WALL         = "black";

@@ -1,7 +1,8 @@
 package sample.Algorithms;
 
+import sample.Constant.CellState;
 import sample.Constant.Constants;
-import sample.Constant.Point;
+import sample.Constant.Cell;
 import sample.MazeController;
 
 import java.util.ArrayList;
@@ -11,85 +12,90 @@ public class Depth_First extends ShortestPath {
 
     public static boolean COMPLETE_DEPTHFIRST = false;
 
-    private static int [][] pathLen = new int[Constants.ROW][Constants.COL];
-
-    private ArrayList<Point> prevPath = null;
-    int shortestPath;
+    private LinkedList<Cell> prevPath = null;
 
     @Override
-    public void algorithm(int[][] grid, Point src, Point des)
+    public void algorithm(Cell src, Cell des)
     {
-        ShortestPath.grid = grid; this.src = src; this.des = des;
+        this.src = src;
+        this.des = des;
+
         shortestPath = Integer.MAX_VALUE;
-
-        for(int i = 0; i < Constants.ROW; i++) {
-            for(int j = 0; j < Constants.COL; j++) {
-                pathLen[i][j] = Integer.MAX_VALUE;
-            }
-        }
-
-        runThread = true;
+        pathFound = false; runThread = true;
     }
 
-    private void DFS(Point curr, Point des, LinkedList<Point> pathList, int len) {
+    private void DFS(Cell curr) {
 
+        // The current is not the SOURCE node
         if(!samePoint(curr, src)) {
-            if(grid[curr.i][curr.j] != Constants.shortest) {
+            if(curr.state != CellState.SHORTEST && curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
                 MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
-                grid[curr.i][curr.j] = Constants.visit;
+                curr.state = CellState.VISITED;
             }
         }
 
-        pathLen[curr.i][curr.j] = len; // update shortest len path
-
-        for (int k = 0; k < Constants.TRAVERSAL_LEN && runThread && pathList.size() < shortestPath; k++) {
-            if (inRange(curr.i + Y[k], curr.j + X[k]) && grid[curr.i + Y[k]][curr.j + X[k]] != Constants.wall)
+        for (int k = 0; k < Constants.TRAVERSAL_LEN && runThread && curr.distance < shortestPath; k++) {
+            if (inRange(curr.i + Y[k], curr.j + X[k]))
             {
-                if((pathLen[curr.i + Y[k]][curr.j + X[k]] > len && COMPLETE_DEPTHFIRST) || (grid[curr.i + Y[k]][curr.j + X[k]] == Constants.unvisit))
+                Cell temp = MazeController.Grid[curr.i+Y[k]][curr.j+X[k]];
+
+                if(temp.state == CellState.UNVISITED || temp.state == CellState.TARGET || temp.state == CellState.SHORTEST)
                 {
                     try { Thread.sleep(Constants.SLEEP_TIME); } catch (Exception ignored){}
 
-                    Point temp = new Point(curr.i + Y[k], curr.j + X[k]);
-
-                    if (!samePoint(temp, des)) // next possible visit for BSF
-                    {
-                        pathList.add(temp); DFS(temp, des, pathList, len+1);
-                        pathList.removeLast();
+                    if(curr.state != CellState.SHORTEST && curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
+                        MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
+                        curr.state = CellState.VISITED;
                     }
 
-                    // Don't make target as visited
-                    else { // destination reached, check if path is shortest
-                        if(pathList.size() < shortestPath)
-                        {
+                    temp.distance = curr.distance + 1;
+                    temp.setParent(curr.i, curr.j);
+
+                    if(temp.state != CellState.TARGET) {
+                        DFS(temp);
+                    }
+                    else { // IF THE TARGET IS REACHED
+                        if(temp.distance < shortestPath) {
                             if(prevPath != null) {
                                 colorPath(prevPath, Constants.VISITED, false);
                             }
 
-                            prevPath = new ArrayList<>(pathList);
-                            colorPath(prevPath, Constants.SHORTEST, true);
-
-                            shortestPath = pathList.size();
+                            shortestPath = temp.distance;
+                            tracePath(temp);
                         }
+                        return;
                     }
                 }
             }
         }
+    }
 
-        // If the index is not from the shortest path
-        if(grid[curr.i][curr.j] != Constants.shortest) {
-            MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.UNVISITED);
+    public void tracePath(Cell temp) {
+
+        LinkedList<Cell> shortestPath = new LinkedList<>();
+        while (temp.state != CellState.SOURCE) {
+
+            shortestPath.addFirst(temp);
+            temp = MazeController.Grid[temp.p_i][temp.p_j];
         }
+
+        shortestPath.removeLast();
+        prevPath = shortestPath;
+
+        System.out.println("Color Path");
+        colorPath(shortestPath, Constants.SHORTEST, true);
     }
 
     @Override
     public void run() {
-        LinkedList<Point> pathList = new LinkedList<>();
-        grid[src.i][src.j] = Constants.shortest;
 
-        pathList.add(src);
-        DFS(src, des, pathList, 0);
+        src.distance = 0;
+        DFS(src);
 
         Constants.currentThread = null;
-        System.out.println("Thrd end");
+
+        if(pathFound) System.out.println("Shortest DFS Path Found");
+
+        System.out.println("Return Depth-First Search Algorithm Thread");
     }
 }

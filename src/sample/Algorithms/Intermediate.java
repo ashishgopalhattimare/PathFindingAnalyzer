@@ -1,13 +1,12 @@
 package sample.Algorithms;
 
-import sample.Constant.Point;
+import sample.Constant.Cell;
 
 public class Intermediate extends ShortestPath {
 
     @Override
-    public void algorithm(int [][] grid, Point src, Point des) {
+    public void algorithm(Cell src, Cell des) {
         this.src = src; this.des = des;
-        ShortestPath.grid = grid;
     }
 
     @Override
