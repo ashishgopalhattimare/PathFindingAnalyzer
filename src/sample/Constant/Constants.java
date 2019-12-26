@@ -39,5 +39,7 @@ public class Constants
 
     public static ShortestPath currentThread;
 
+    public static final String GITHUB_LINK = "https://github.com/ashishgopalhattimare";
+
     private Constants() { }
 }

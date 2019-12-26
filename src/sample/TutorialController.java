@@ -12,7 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.Constant.Constants;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,6 +65,12 @@ public class TutorialController implements Initializable {
         });
 
         skipButton.setOnAction(event -> OpenApplication());
+
+        github.setOnMouseClicked(event -> {
+            try {
+                Desktop.getDesktop().browse(new URI(Constants.GITHUB_LINK));
+            } catch (Exception ignored) {}
+        });
     }
 
     private void updatePage()
