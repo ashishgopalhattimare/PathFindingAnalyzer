@@ -106,8 +106,8 @@ class ComparePoint implements Comparator<Cell> {
     @Override
     public int compare(Cell cell1, Cell cell2) {
 
-        long dest1 = calculateHValue(cell1);
-        long dest2 = calculateHValue(cell2);
+        long dest1 = calculateHValue(cell1) + cell1.distance;
+        long dest2 = calculateHValue(cell2) + cell2.distance;
 
         if(dest1 == dest2) return 0;
         else if(dest1 < dest2)

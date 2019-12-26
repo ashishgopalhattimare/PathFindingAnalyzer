@@ -2,7 +2,7 @@ package sample.Constant;
 
 public class Cell {
 
-    public int i, j, distance;
+    public int i, j, distance; // distance is 'g'
     public int p_i, p_j;
 
     public CellState state;

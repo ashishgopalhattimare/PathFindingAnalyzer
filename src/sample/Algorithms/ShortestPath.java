@@ -3,7 +3,6 @@ package sample.Algorithms;
 import sample.Constant.CellState;
 import sample.Constant.Constants;
 import sample.Constant.Cell;
-import sample.Constant.Point;
 import sample.MazeController;
 
 import java.util.LinkedList;
