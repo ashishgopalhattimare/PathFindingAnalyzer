@@ -116,7 +116,7 @@
                               </JFXButton>
                               <JFXCheckBox fx:id="diagonalCheckBox" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: white; -fx-background-radius: 4;" text="Diagonal Traversal">
                                  <FlowPane.margin>
-                                    <Insets bottom="5.0" left="44.0" top="5.0" />
+                                    <Insets bottom="5.0" left="10.0" top="5.0" />
                                  </FlowPane.margin>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -124,6 +124,17 @@
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                              </JFXCheckBox>
+                              <JFXCheckBox fx:id="dfsCheckBox" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: white; -fx-background-radius: 4;" text="Exhaustive DFS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <FlowPane.margin>
+                                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                                 </FlowPane.margin>
                               </JFXCheckBox>
                            </children>
                         </FlowPane>
@@ -205,7 +216,7 @@
    <center>
       <FlowPane alignment="BOTTOM_CENTER" orientation="VERTICAL" prefHeight="552.0" prefWidth="998.0" style="-fx-background-color: #fff;" BorderPane.alignment="BOTTOM_CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="1001.0" text="&lt; No path has been found &gt;" textAlignment="CENTER" textFill="#51449a">
+            <Label fx:id="statusLabel" alignment="CENTER" prefHeight="23.0" prefWidth="1001.0" text="&lt; No path has been found &gt;" textAlignment="CENTER" textFill="#51449a">
                <FlowPane.margin>
                   <Insets bottom="5.0" />
                </FlowPane.margin>

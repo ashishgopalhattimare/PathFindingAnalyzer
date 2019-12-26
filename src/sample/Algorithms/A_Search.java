@@ -76,6 +76,11 @@ public class A_Search extends ShortestPath {
 
         System.out.println("Return A* Algorithm Thread");
         Constants.currentThread = null;
+
+        if(!pathFound) MazeController.UpdateLabel("A* > No path found");
+        else {
+            MazeController.UpdateLabel("Shortest Path : " + shortestPath);
+        }
     }
 
     public void tracePath(Cell temp) {

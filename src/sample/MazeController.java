@@ -43,6 +43,11 @@ public class MazeController implements Initializable {
     private JFXButton   visualButton;
     @FXML
     private JFXCheckBox diagonalCheckBox;
+    @FXML
+    private JFXCheckBox dfsCheckBox;
+    @FXML
+    private Label       statusLabel;
+    public static Label StatusLabel;
 
     private CellState curState;
     private int algoIndex;
@@ -182,6 +187,7 @@ public class MazeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        StatusLabel = statusLabel;
 
         for(int i = 0; i < Constants.ROW; i++) {
             for(int j = 0; j < Constants.COL; j++) {
@@ -237,6 +243,11 @@ public class MazeController implements Initializable {
         Grid[currSD[1][0]][currSD[1][1]].state = CellState.TARGET;
     }
 
+    public static void UpdateLabel(String text)
+    {
+        StatusLabel.setText(text);
+    }
+
     @FXML void visualActionEvent(ActionEvent event) {
 
         // If both the source and destination points are given
@@ -249,6 +260,8 @@ public class MazeController implements Initializable {
 
                 if(diagonalCheckBox.isSelected()) Constants.TRAVERSAL_LEN = Constants.DIAGONAL;
                 else Constants.TRAVERSAL_LEN = Constants.NON_DIAGONAL;
+
+                Constants.DFX_EXHAUSTIVE = dfsCheckBox.isSelected();
 
                 switch(algoIndex) {
                     case 0: algo = new Breadth_First();
@@ -371,6 +384,7 @@ public class MazeController implements Initializable {
                         wallPainted++;
                     } catch (Exception ignored) { }
                 }
+
                 if(wallPainted < wallAr.size()) { // If any wall is left
                     for(Cell x : wallAr) {
                         PaintBlock(x.i, x.j, Constants.BORDER, Constants.WALL);

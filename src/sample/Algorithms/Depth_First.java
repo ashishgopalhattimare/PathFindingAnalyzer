@@ -27,26 +27,19 @@ public class Depth_First extends ShortestPath {
     private void DFS(Cell curr) {
 
         // The current is not the SOURCE node
-        if(!samePoint(curr, src)) {
-            if(curr.state != CellState.SHORTEST && curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
-                MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
-                curr.state = CellState.VISITED;
-            }
+        if(curr.state != CellState.SHORTEST && curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
+            MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
+            curr.state = CellState.VISITED;
         }
 
-        for (int k = 0; k < Constants.TRAVERSAL_LEN && runThread && curr.distance < shortestPath; k++) {
+        for (int k = 0; k < Constants.TRAVERSAL_LEN && runThread && curr.distance < shortestPath && !pathFound; k++) {
             if (inRange(curr.i + Y[k], curr.j + X[k]))
             {
                 Cell temp = MazeController.Grid[curr.i+Y[k]][curr.j+X[k]];
 
-                if(temp.state == CellState.UNVISITED || temp.state == CellState.TARGET || temp.state == CellState.SHORTEST)
+                if(curr.distance + 1 < temp.distance)
                 {
                     try { Thread.sleep(Constants.SLEEP_TIME); } catch (Exception ignored){}
-
-                    if(curr.state != CellState.SHORTEST && curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
-                        MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
-                        curr.state = CellState.VISITED;
-                    }
 
                     temp.distance = curr.distance + 1;
                     temp.setParent(curr.i, curr.j);
@@ -62,11 +55,18 @@ public class Depth_First extends ShortestPath {
 
                             shortestPath = temp.distance;
                             tracePath(temp);
+
+                            if(!Constants.DFX_EXHAUSTIVE) runThread = false;
                         }
                         return;
                     }
                 }
             }
+        }
+
+        if(curr.state != CellState.SHORTEST && curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
+            MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.UNVISITED);
+            curr.state = CellState.UNVISITED;
         }
     }
 
@@ -78,8 +78,6 @@ public class Depth_First extends ShortestPath {
             shortestPath.addFirst(temp);
             temp = MazeController.Grid[temp.p_i][temp.p_j];
         }
-
-        shortestPath.removeLast();
         prevPath = shortestPath;
 
         System.out.println("Color Path");
@@ -94,7 +92,10 @@ public class Depth_First extends ShortestPath {
 
         Constants.currentThread = null;
 
-        if(pathFound) System.out.println("Shortest DFS Path Found");
+        if(!pathFound) MazeController.UpdateLabel("DFS > No path found");
+        else {
+            MazeController.UpdateLabel("Shortest Path : " + shortestPath);
+        }
 
         System.out.println("Return Depth-First Search Algorithm Thread");
     }

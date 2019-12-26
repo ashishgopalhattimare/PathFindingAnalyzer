@@ -74,6 +74,11 @@ public class Breadth_First extends ShortestPath {
         while(!queue.isEmpty()) queue.poll();
         Constants.currentThread = null;
 
+        if(!pathFound) MazeController.UpdateLabel("BFS > No path found");
+        else {
+            MazeController.UpdateLabel("Shortest Path : " + shortestPath);
+        }
+
         System.out.println("Return Breadth-First Search Algorithm Thread");
     }
 }
