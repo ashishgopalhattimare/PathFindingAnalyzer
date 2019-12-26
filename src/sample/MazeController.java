@@ -356,7 +356,6 @@ public class MazeController implements Initializable {
         String filePath = Constants.mazeDirect + "fun.txt";
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("template"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         fileChooser.setTitle("Save Maze");
 
@@ -389,7 +388,18 @@ public class MazeController implements Initializable {
 
     @FXML void loadMazeActionEvent(ActionEvent event) {
 
-        ArrayList<Cell> wallAr = ReadWrite.read(Constants.mazeDirect + "template.txt");
+        String filePath = Constants.mazeDirect + "template.txt";
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        fileChooser.setTitle("Load Maze");
+
+        Stage fileStage = new Stage();
+        File file = fileChooser.showOpenDialog(fileStage);
+
+        if(file != null) filePath = file.getPath();
+
+        ArrayList<Cell> wallAr = ReadWrite.read(filePath);
 
         if(wallAr != null) { // There are wall
             Collections.shuffle(wallAr);
