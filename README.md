@@ -1,1 +1,1 @@
-# GraphAnalyzer
+# Path Finding Analyzer
