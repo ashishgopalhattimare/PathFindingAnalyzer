@@ -2,7 +2,7 @@
   <artifact type="jar" name="GraphAnalyzer:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/GraphAnalyzer_jar</output-path>
     <root id="archive" name="GraphAnalyzer.jar">
-      <element id="module-output" name="GraphAnalyzer" />
+      <element id="module-output" name="PathFinderAnalyzer" />
       <element id="extracted-dir" path="$PROJECT_DIR$/jfoenix-8.0.8.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/controlsfx-8.40.15.jar" path-in-jar="/" />
     </root>
