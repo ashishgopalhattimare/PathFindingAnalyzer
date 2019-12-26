@@ -131,7 +131,7 @@
                                     <Insets left="3.0" />
                                  </FlowPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelMazeActionEvent" prefHeight="30.0" prefWidth="61.0" style="-fx-background-color: white;" text="Cancel">
+                              <JFXButton fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#cancelMazeActionEvent" prefHeight="30.0" prefWidth="61.0" style="-fx-background-color: white;" text="Cancel">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

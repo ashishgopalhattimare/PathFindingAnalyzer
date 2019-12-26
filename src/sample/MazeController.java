@@ -218,7 +218,6 @@ public class MazeController implements Initializable {
 
         for(int i = 0; i < Constants.ROW; i++) {
             for(int j = 0; j < Constants.COL; j++) {
-
                 Grid[i][j] = new Cell(i, j);
                 addBoxProperty(i, j);
             }
@@ -228,18 +227,11 @@ public class MazeController implements Initializable {
         algoOptions.getItems().addAll("Breadth First Search", "Depth First Search",
                 "Intermediate Shortest Path", "A* Algorithm");
 
-        algoOptions.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                algoIndex = algoOptions.getSelectionModel().getSelectedIndex();
-            }
-        });
-        algoIndex = -1;
+        algoOptions.setOnAction(event -> algoIndex = algoOptions.getSelectionModel().getSelectedIndex());
 
+        algoIndex = -1;
         applyColor = false;
         curState = null;
-
-        cancelButton.setDisable(true);
     }
 
     private void updateGrid() {
