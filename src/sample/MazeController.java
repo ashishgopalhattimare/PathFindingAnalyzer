@@ -363,7 +363,10 @@ public class MazeController implements Initializable {
         File file = fileChooser.showSaveDialog(fileStage);
 
         if(file != null) filePath = file.getPath();
-        System.out.println(filePath);
+        else {
+            File f = new File(filePath);
+            if(!f.exists()) return;
+        }
 
         ReadWrite.save(filePath);
         cancelButton.setDisable(true); saveButton.setDisable(true);
@@ -398,6 +401,10 @@ public class MazeController implements Initializable {
         File file = fileChooser.showOpenDialog(fileStage);
 
         if(file != null) filePath = file.getPath();
+        else {
+            File f = new File(filePath);
+            if(!f.exists()) return;
+        }
 
         ArrayList<Cell> wallAr = ReadWrite.read(filePath);
 
