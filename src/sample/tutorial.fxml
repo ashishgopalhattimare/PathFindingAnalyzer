@@ -22,12 +22,12 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Welcome to PathFinding" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="40.0" prefHeight="30.0" prefWidth="255.0" text="Analyzer!" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="31.0" layoutY="100.0" prefHeight="20.0" prefWidth="335.0" text="This is a short tutorial to walkthrough you to the" textAlignment="CENTER">
@@ -53,12 +53,12 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="What are PathFinding" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="40.0" prefHeight="30.0" prefWidth="255.0" text="Algorithms?" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="31.0" layoutY="100.0" prefHeight="20.0" prefWidth="335.0" text="At its core, a pathfind algorithm is a technique to find" textAlignment="CENTER">
@@ -99,7 +99,7 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Picking an Algorithm" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="Choose an algorithm from the" textAlignment="CENTER">
@@ -131,7 +131,7 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Meet the Algorithms" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="Not all algorithms are equally treated by the Community" textAlignment="CENTER">
@@ -185,13 +185,29 @@
                   <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="faster than Dijkstra's Algorithm." textAlignment="CENTER" />
                </children>
             </FlowPane>
+            <FlowPane layoutX="33.0" layoutY="274.0" prefHeight="42.0" prefWidth="335.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="19.0" prefWidth="335.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text="Greedy Best-First" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" text=" (weighted) : a faster, more heuristic-" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="heavy and greedy approach of A*, does not guarantee the" textAlignment="CENTER" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="19.0" prefWidth="335.0" text="shortest path, but is faster than A* Search." textAlignment="CENTER" />
+               </children>
+            </FlowPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="page4" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Enjoy!" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
             <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="I hope you have just as much playing around with the" textAlignment="CENTER">
