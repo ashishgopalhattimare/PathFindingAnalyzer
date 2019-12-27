@@ -99,7 +99,6 @@ public class TutorialController implements Initializable {
 
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("PathFinder Analyzer");
-//            primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.getIcons().add(new Image("/images/logo.png"));
             primaryStage.show();
 

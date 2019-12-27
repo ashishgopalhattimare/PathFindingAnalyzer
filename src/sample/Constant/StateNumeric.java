@@ -1,9 +1,11 @@
 package sample.Constant;
 
-public class StateNumeric {
+public class StateNumeric
+{
     private StateNumeric() {}
 
-    public static CellState GetNumeric(char chr) {
+    public static CellState GetNumeric(char chr)
+    {
         switch (chr)
         {
             case '0': return CellState.UNVISITED;
@@ -17,8 +19,16 @@ public class StateNumeric {
         return null;
     }
 
-    public static char GetCharacter(CellState state) {
-        if(state == CellState.WALL) return '2';
-        return '0';
+    public static char GetCharacter(CellState state)
+    {
+        if(state == CellState.UNVISITED)    return '0';
+        if(state == CellState.VISITED)      return '1';
+        if(state == CellState.WALL)         return '2';
+        if(state == CellState.SHORTEST)     return '3';
+        if(state == CellState.INTERMEDIATE) return '4';
+        if(state == CellState.TARGET)       return '5';
+
+        return '6';
     }
+
 }
