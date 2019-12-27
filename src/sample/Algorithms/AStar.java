@@ -99,7 +99,7 @@ public class AStar extends ShortestPath {
             while(!pq.isEmpty()) pq.poll();
         }
 
-        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
+        if(pathFound) MazeController.UpdateBorder(Constants.TARGET);
         Constants.currentThread = null;
         System.out.println("Return A* Search Algorithm Thread");
     }

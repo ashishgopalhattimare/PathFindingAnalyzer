@@ -39,7 +39,7 @@ public class MazeController implements Initializable {
     @FXML private JFXCheckBox dfsCheckBox;
     @FXML private FlowPane labelPanel;
 
-    public static GridPane gp;
+    public static GridPane GridPanel;
 
     private CellState curState;
     private int algoIndex;
@@ -176,7 +176,7 @@ public class MazeController implements Initializable {
 
     public static void UpdateBorder(String color) {
         if(Constants.UPDATE_BORDER) {
-            gp.setStyle("-fx-border-color: " + color);
+            GridPanel.setStyle("-fx-border-color: " + color);
         }
     }
 
@@ -194,9 +194,6 @@ public class MazeController implements Initializable {
             stage.setY(event.getScreenY() - yOffset);
         });
 
-        platform.setStyle("-fx-border-color: " + Constants.WALL);
-        gp = platform;
-
         minimizeButton.setOnAction(event -> {
             Stage stage = (Stage) minimizeButton.getScene().getWindow();
             stage.setIconified(true);
@@ -206,6 +203,9 @@ public class MazeController implements Initializable {
             stage.close();
         });
          **/
+
+        platform.setStyle("-fx-border-color: " + Constants.WALL);
+        GridPanel = platform;
 
         for(int i = 0; i < Constants.ROW; i++) {
             for(int j = 0; j < Constants.COL; j++) {
@@ -269,7 +269,7 @@ public class MazeController implements Initializable {
                 updateGrid();
 
                 Constants.UPDATE_BORDER = updateBorder.isSelected();
-                UpdateBorder(Constants.WALL);
+                // UpdateBorder(Constants.WALL);
 
                 if(diagonalCheckBox.isSelected()) Constants.TRAVERSAL_LEN = Constants.DIAGONAL;
                 else Constants.TRAVERSAL_LEN = Constants.NON_DIAGONAL;
@@ -351,7 +351,7 @@ public class MazeController implements Initializable {
 
     @FXML void saveMazeActionEvent(ActionEvent event) {
 
-        String filePath = Constants.mazeDirect + "fun.txt";
+        String filePath = Constants.MAZE_DIRECT + Constants.DEFAULT_SAVE;
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
@@ -389,7 +389,7 @@ public class MazeController implements Initializable {
 
     @FXML void loadMazeActionEvent(ActionEvent event) {
 
-        String filePath = Constants.mazeDirect + "template.txt";
+        String filePath = Constants.MAZE_DIRECT + Constants.DEFAULT_LOAD;
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));

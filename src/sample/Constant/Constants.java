@@ -24,7 +24,7 @@ public class Constants
 
     public static final String INTERMEDIATE = "#f000ff"; // pink
 
-    public static final String mazeDirect   = "template/";
+    public static final String MAZE_DIRECT   = "template/";
 
     public static final int SLEEP_TIME      = 40;
     public static final int SHORT_TIME      = 30;
@@ -38,6 +38,9 @@ public class Constants
     public static boolean UPDATE_BORDER;
 
     public static ShortestPath currentThread;
+
+    public static final String DEFAULT_LOAD = "maze1.txt";
+    public static final String DEFAULT_SAVE = "untitled.txt";
 
     public static final String GITHUB_LINK = "https://github.com/ashishgopalhattimare";
 

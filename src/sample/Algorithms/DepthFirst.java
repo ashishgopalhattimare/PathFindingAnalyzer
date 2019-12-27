@@ -89,7 +89,7 @@ public class DepthFirst extends ShortestPath {
         src.distance = 0;
         DFS(src);
 
-        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
+        if(pathFound) MazeController.UpdateBorder(Constants.TARGET);
         Constants.currentThread = null;
         System.out.println("Return Depth-First Search Algorithm Thread");
     }

@@ -81,7 +81,7 @@ public class GreedyBestFirst extends ShortestPath {
             while(!pq.isEmpty()) pq.poll();
         }
 
-        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
+        if(pathFound) MazeController.UpdateBorder(Constants.TARGET);
         Constants.currentThread = null;
         System.out.println("Return Greedy Best-First Thread");
     }
@@ -110,8 +110,8 @@ class CompareGreedy implements Comparator<Cell> {
     @Override
     public int compare(Cell cell1, Cell cell2) {
 
-        long dest1 = calculateHValue(cell1) + cell1.distance;
-        long dest2 = calculateHValue(cell2) + cell2.distance;
+        long dest1 = calculateHValue(cell1); // only h(cost) is considered
+        long dest2 = calculateHValue(cell2); // only h(cost) is considered
 
         if(dest1 == dest2) return 0;
         else if(dest1 < dest2)

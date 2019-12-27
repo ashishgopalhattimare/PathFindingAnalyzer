@@ -8,27 +8,19 @@ public class StateNumeric
     {
         switch (chr)
         {
-            case '0': return CellState.UNVISITED;
-            case '1': return CellState.VISITED;
-            case '2': return CellState.WALL;
-            case '3': return CellState.SHORTEST;
-            case '4': return CellState.INTERMEDIATE;
-            case '5': return CellState.TARGET;
-            case '6': return CellState.SOURCE;
+            case '-': return CellState.UNVISITED;
+            case '*': return CellState.WALL;
+            case 'x': return CellState.TARGET;
+            case '.': return CellState.SOURCE;
         }
         return null;
     }
 
     public static char GetCharacter(CellState state)
     {
-        if(state == CellState.UNVISITED)    return '0';
-        if(state == CellState.VISITED)      return '1';
-        if(state == CellState.WALL)         return '2';
-        if(state == CellState.SHORTEST)     return '3';
-        if(state == CellState.INTERMEDIATE) return '4';
-        if(state == CellState.TARGET)       return '5';
-
-        return '6';
+        if(state == CellState.SOURCE)       return 'o';
+        if(state == CellState.WALL)         return '*';
+        if(state == CellState.TARGET)       return 'x';
+        return '-';
     }
-
 }

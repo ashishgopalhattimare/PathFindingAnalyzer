@@ -25,7 +25,7 @@ public class ReadWrite {
                     if(MazeController.Grid[i][j].state == CellState.WALL)
                         possibleSave = true;
 
-                    sb.append(StateNumeric.GetCharacter(MazeController.Grid[i][j].state));
+                    sb.append(StateNumeric.GetCharacter(MazeController.Grid[i][j].state) + " ");
                 }
                 if(i != Constants.ROW-1) sb.append("\n");
             }

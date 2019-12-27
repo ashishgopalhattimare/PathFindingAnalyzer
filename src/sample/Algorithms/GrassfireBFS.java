@@ -73,7 +73,7 @@ public class GrassfireBFS extends ShortestPath {
             while(!queue.isEmpty()) queue.poll();
         }
 
-        if(!pathFound) MazeController.UpdateBorder(Constants.TARGET);
+        if(pathFound) MazeController.UpdateBorder(Constants.TARGET);
         Constants.currentThread = null;
         System.out.println("Return Breadth-First Search Algorithm Thread");
     }
