@@ -50,7 +50,7 @@ On a map with many obstacles, pathfinding from points  AA  to  BB  can be diffic
 </p>
 <p align="center"> <i>Fig 1.3 Demo of the A* Search Algorithm</i> </p>
 
-5 **Greedy Best-First Search**
+5. **Greedy Best-First Search**
 
 	It is a suboptimal best-first search algorithm which works on the principle of A* Algorithm and always priorities the node with the lowest heuristic value without any consideration of the cost to get to that node. While this greedy GBFS algorithm can be effective in practice, it can be misled by an arbitrary amount if th heuristic is wrong. Hence, it does not gurantee shortest path.
 	
