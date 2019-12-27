@@ -27,49 +27,67 @@ public class A_Search extends ShortestPath {
 
         PriorityQueue<Cell> pq = new PriorityQueue<Cell>(new ComparePoint(des));
         Cell curr, temp;
+        double gNew, hNew, fNew;
 
+        src.f = src.g = src.h = 0.0;
         src.distance = 0;
+
         pq.add(src);
 
         try {
             while (!pq.isEmpty() && !pathFound && runThread) {
 
                 curr = pq.poll();
+                curr.visit = true;
 
-                // The distance of the last element in the array should be
-                // used to check that array's validity
-                if(curr.distance + 1 < shortestPath) // if the current front node can be better than the previous one
-                {
-                    if (!samePoint(src, curr)) // Ignore the source node
-                        MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
+                if (!samePoint(src, curr)) // Ignore the source node
+                    MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
 
-                    for (int k = 0; k < Constants.TRAVERSAL_LEN; k++) {
-                        if (inRange(curr.i + Y[k], curr.j + X[k])) {
+                for (int k = 0; k < Constants.TRAVERSAL_LEN; k++) {
 
-                            temp = MazeController.Grid[curr.i + Y[k]][curr.j + X[k]];
+                    if (inRange(curr.i + Y[k], curr.j + X[k])) {
 
-                            if(curr.distance + 1 < temp.distance)
-                            {
-                                temp.distance = curr.distance + 1;
-                                temp.setParent(curr.i, curr.j);
+                        temp = MazeController.Grid[curr.i + Y[k]][curr.j + X[k]];
 
-                                if (!samePoint(temp, des)) { // next possible visit for BSF
-                                    MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
-                                    pq.add(temp);
-                                }
-                                else { // IF THE TARGET IS REACHED
+                        if(curr.distance < temp.distance) {
+
+                            if(samePoint(temp, des)){ // IF THE TARGET IS REACHED
+
+                                if(curr.distance < shortestPath) {
+                                    temp.setParent(curr.i, curr.j);
                                     if(prevPath != null) {
                                         colorPath(prevPath, Constants.VISITED, false);
                                     }
-
-                                    shortestPath = temp.distance;
+                                    shortestPath = curr.distance;
                                     tracePath(temp);
+
+                                    pathFound = true;
+                                    break;
+                                }
+                            }
+                            else {
+                                if(!temp.visit && temp.state != CellState.WALL && temp.state != CellState.SOURCE && temp.state != CellState.TARGET)
+                                {
+                                    gNew = curr.g + 1.0;
+                                    hNew = Math.sqrt(ComparePoint.calculateHValue(temp));
+                                    fNew = gNew + hNew;
+
+                                    if(temp.f == Float.MAX_VALUE || temp.f > fNew) {
+
+                                        temp.f = fNew; temp.g = gNew; temp.h = hNew;
+                                        temp.setParent(curr.i, curr.j);
+
+                                        temp.distance = curr.distance + 1;
+
+                                        MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
+                                        pq.add(temp);
+                                    }
                                 }
                             }
                         }
                     }
-                    Thread.sleep(Constants.SLEEP_TIME);
                 }
+                Thread.sleep(Constants.SLEEP_TIME);
             }
         }
         catch (Exception ignored) {}
@@ -105,19 +123,13 @@ class ComparePoint implements Comparator<Cell> {
 
     @Override
     public int compare(Cell cell1, Cell cell2) {
-
-        long dest1 = calculateHValue(cell1) + cell1.distance;
-        long dest2 = calculateHValue(cell2) + cell2.distance;
-
-        if(dest1 == dest2) return 0;
-        else if(dest1 < dest2)
-            return -1;
+        if(cell1.f < cell2.f) return -1;
         return 1;
     }
 
     // No need to do the square root as both are getting square root
     // if A > B => sqrt(A) > sqrt(B)
-    public long calculateHValue(Cell curr) {
+    public static long calculateHValue(Cell curr) {
         return (long) (Math.pow(curr.i-dest.i,2) + Math.pow(curr.j-dest.j,2));
     }
 }

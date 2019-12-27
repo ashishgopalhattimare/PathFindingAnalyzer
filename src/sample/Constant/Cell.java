@@ -5,19 +5,21 @@ public class Cell {
     public int i, j, distance; // distance is 'g'
     public int p_i, p_j;
 
+    public double f, g, h;
+    public boolean visit;
+
     public CellState state;
 
     // Default Constructor for the MazeController Initialization of the grid cells
     public Cell(int i, int j)
     {
         this.i = i; this.j = j;
-        distance = 0;
         state = CellState.UNVISITED;
     }
 
-    public Cell(int i, int j, int dist) {
-        this.i = i; this.j = j;
-        this.distance = dist;
+    public void AStarStateInitilization() {
+        this.f = this.g =
+                this.h = Float.MAX_VALUE;
     }
 
     public void setParent(int i, int j) {
@@ -27,12 +29,15 @@ public class Cell {
     @Override
     public String toString() {
         return "Cell{" +
-                "i=" + i +
-                ", j=" + j +
-                ", distance=" + distance +
-                ", p_i=" + p_i +
-                ", p_j=" + p_j +
-                ", state=" + state +
+                "\ni=" + i +
+                ",\nj=" + j +
+                ",\ndistance=" + distance +
+                ",\np_i=" + p_i +
+                ",\np_j=" + p_j +
+                ",\nf=" + f +
+                ",\ng=" + g +
+                ",\nh=" + h +
+                ",\nstate=" + state +
                 '}';
     }
 }

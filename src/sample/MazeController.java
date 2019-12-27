@@ -15,12 +15,9 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.ToggleSwitch;
-import sample.Algorithms.A_Search;
-import sample.Algorithms.Breadth_First;
-import sample.Algorithms.Depth_First;
+import sample.Algorithms.*;
 import sample.Constant.CellState;
 import sample.Constant.Cell;
-import sample.Algorithms.ShortestPath;
 import sample.Constant.Constants;
 import sample.File.ReadWrite;
 
@@ -225,7 +222,7 @@ public class MazeController implements Initializable {
         for(int i = 0; i < 3; i++) currSD[i][0] = -1;
 
         algoOptions.getItems().addAll("Breadth First Search", "Depth First Search",
-                "Intermediate Shortest Path", "A* Algorithm");
+                "Intermediate Shortest Path", "A* Algorithm", "Greedy Best-First");
 
         algoOptions.setOnAction(event -> algoIndex = algoOptions.getSelectionModel().getSelectedIndex());
 
@@ -240,6 +237,11 @@ public class MazeController implements Initializable {
             for (int j = 0; j < Constants.COL; j++) {
 
                 Grid[i][j].setParent(-1,-1); // Set parent to null
+                Grid[i][j].visit = false;
+
+                if(algoIndex == 3) { // A-start Algorithm Implementation
+                    Grid[i][j].AStarStateInitilization();
+                }
 
                 // Remove Everything except the walls
                 if(Grid[i][j].state != CellState.WALL) {
@@ -286,6 +288,8 @@ public class MazeController implements Initializable {
                     case 1: algo = new Depth_First();
                             break;
                     case 3: algo = new A_Search();
+                            break;
+                    case 4: algo = new GreedyBest_First();
                             break;
                 }
                 if(algo != null)
