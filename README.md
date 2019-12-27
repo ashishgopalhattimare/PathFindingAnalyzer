@@ -17,7 +17,7 @@ PathFinding Analyzer is a visualization tool which is focused on shortest path a
 	The Space Complexity of the BFS algorithm is b^d (branching factor raised to the depth of the graph).
 
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/BFS_GIF.gif" width="45%">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/BFS_GIF.gif" width="40%">
 </p>
 <p align="center"> <i>Fig 1.1 Demo of the Breadth-First Search (BFS) Algorithm</i> </p>
 
@@ -28,7 +28,11 @@ PathFinding Analyzer is a visualization tool which is focused on shortest path a
 	It is very inefficient algorithm for path-finding and it does not guarantee shortest path. It includes **exhaustive** searches of all the nodes by going ahead, if possible, else by backtracking. It uses **Stack** for its implementation. It can get stuck in an infinite loop, which is why it is not **"Complete"**.
 
 	The Space Complexity of the DFS algorithm is O(log(d)) where is 'd' is the depth of the graph.
-  
+
+<p align="center">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/DFS_GIF.gif" width="40%">
+</p>
+<p align="center"> <i>Fig 1.2 Demo of the Depth-First Search (DFS) Algorithm</i> </p>
 
 4. **A\* Search**
 
@@ -42,6 +46,18 @@ On a map with many obstacles, pathfinding from points  AA  to  BB  can be diffic
 	To know more about the A\* Algorithm, follow this [*link*](https://brilliant.org/wiki/a-star-search/).
   
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Astar_GIF.gif" width="45%">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Astar_GIF.gif" width="40%">
 </p>
-<p align="center"> <i>Fig 1.3 Demo of the A* (A-star) Algorithm</i> </p>
+<p align="center"> <i>Fig 1.3 Demo of the A* Search Algorithm</i> </p>
+
+5. **Greedy Best-First Search**
+
+	It is a suboptimal best-first search algorithm which works on the principle of A* Algorithm and always priorities the node with the lowest heuristic value without any consideration of the cost to get to that node. While this greedy GBFS algorithm can be effective in practice, it can be misled by an arbitrary amount if th heuristic is wrong. Hence, it does not gurantee shortest path.
+	
+	To know more about the GBFS Algorithm, follow this [*link*](https://pdfs.semanticscholar.org/96b1/4928aa2cdcb60e29ac68be39e8a91069c875.pdf).
+	
+<p align="center">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Greedy_GIF.gif" width="40%">
+</p>
+<p align="center"> <i>Fig 1.3 Demo of the Greedy Best-First Search (GBFS) Algorithm</i> </p>
+
