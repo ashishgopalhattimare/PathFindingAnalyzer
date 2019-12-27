@@ -18,7 +18,7 @@
             <JFXButton fx:id="skipButton" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="92.0" style="-fx-border-color: black; -fx-background-color: #1bcc5c; -fx-border-radius: 4;" text="Skip Tutorial" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="page0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="page0" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Welcome to PathFinding" textAlignment="CENTER">
                <font>
@@ -204,6 +204,107 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="page4" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Adding Walls" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="Click on the Wall Button in the NavBar to add the wall." textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="88.0" prefHeight="20.0" prefWidth="335.0" text="Now, when you click on the grid, you can add the walls" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="108.0" prefHeight="20.0" prefWidth="335.0" text="on the cells while moving the mouse. Clicking again," textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="128.0" prefHeight="20.0" prefWidth="335.0" text="would stop adding walls as you move the cursor." textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="42.0" fitWidth="161.0" layoutX="145.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/wall.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="32.0" layoutY="215.0" prefHeight="20.0" prefWidth="335.0" text="Walls are impenetrable, meaning that a path cannot cross" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="32.0" layoutY="235.0" prefHeight="20.0" prefWidth="335.0" text="through them." textAlignment="CENTER" />
+            <ImageView fitHeight="110.0" fitWidth="170.0" layoutX="116.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/WALL_GIF.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="page5" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Create A Maze!" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="Use the navbar to Create, Save, and Load" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="88.0" prefHeight="20.0" prefWidth="335.0" text="your custom Maze." textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="133.0" prefHeight="20.0" prefWidth="335.0" text="The mazes are saved locally in your system." textAlignment="CENTER" />
+            <ImageView fitHeight="66.0" fitWidth="255.0" layoutX="73.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/mazebar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="page6" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Additional Features" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="68.0" prefHeight="20.0" prefWidth="335.0" text="Use of Diagonal Traversal, DFS Exhaustive Search" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="88.0" prefHeight="20.0" prefWidth="335.0" text="and Shortest-Path Indicator Toggle." textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="133.0" prefHeight="20.0" prefWidth="335.0" text="By default, the traversal is 4-directional. For user experience," textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="153.0" prefHeight="20.0" prefWidth="335.0" text="they can modify the traversal to 8-directional search." textAlignment="CENTER" />
+
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="182.0" prefHeight="20.0" prefWidth="335.0" text="Exhaustive DFS is only to experience how bad the DFS is" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="202.0" prefHeight="20.0" prefWidth="335.0" text="for shortest pathfinding" textAlignment="CENTER" />
+
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="232.0" prefHeight="20.0" prefWidth="335.0" text="The toggle button is allow for user to know whether" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="252.0" prefHeight="20.0" prefWidth="335.0" text="indicate the shortest path has found or not" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="272.0" prefHeight="20.0" prefWidth="335.0" text="By default, the grid border are black, if they turn" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="33.0" layoutY="292.0" prefHeight="20.0" prefWidth="335.0" text="red, then there is shortest path" textAlignment="CENTER" />
+
+            <ImageView fitHeight="57.0" fitWidth="290.0" layoutX="56.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/navbar2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="page7" layoutX="-400.0" prefHeight="490.0" prefWidth="400.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="30.0" prefWidth="255.0" text="Enjoy!" textAlignment="CENTER">
                <font>

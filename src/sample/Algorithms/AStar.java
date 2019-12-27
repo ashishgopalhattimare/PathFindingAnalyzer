@@ -14,6 +14,8 @@ public class AStar extends ShortestPath {
     private LinkedList<Cell> prevPath = null;
     public int shortestPath;
 
+    private final int CELL_WEIGHT = 1;
+
     public AStar() {}
 
     @Override
@@ -70,7 +72,7 @@ public class AStar extends ShortestPath {
                             else {
                                 if(!temp.visit && temp.state != CellState.WALL && temp.state != CellState.SOURCE && temp.state != CellState.TARGET)
                                 {
-                                    gNew = curr.g + 1.0;
+                                    gNew = curr.g + CELL_WEIGHT;
                                     hNew = Math.sqrt(ComparePoint.calculateHValue(temp));
                                     fNew = gNew + hNew;
 

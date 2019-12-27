@@ -151,7 +151,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </JFXCheckBox>
-                              <JFXCheckBox fx:id="dfsCheckBox" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: white; -fx-background-radius: 4;" text="Exhaustive DFS">
+                              <JFXCheckBox fx:id="dfsCheckBox" disable="true" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: white; -fx-background-radius: 4;" text="Exhaustive DFS">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>

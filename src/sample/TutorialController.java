@@ -22,19 +22,23 @@ import java.util.ResourceBundle;
 public class TutorialController implements Initializable {
 
     @FXML private JFXButton previousButton, nextButton, skipButton;
-    @FXML private AnchorPane page0, page1, page2, page3, page4;
+    @FXML private AnchorPane page0, page1, page2, page3, page4, page5, page6, page7;
     @FXML private Label github;
 
     private int prevPage = -1, currPage = 0;
     private AnchorPane anchorPage[];
 
     private static final int PAGE_WIDTH = 400;
-    private static final int TOTAL_PAGE = 5;
+    private static final int TOTAL_PAGE = 8;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        anchorPage = new AnchorPane[]{page0, page1, page2, page3, page4};
+        anchorPage = new AnchorPane[]{page0, page1, page2, page3, page4, page5, page6, page7};
+
+        // Set the default possible of the pages
+        page0.setLayoutX(0);
+        for(int i = 1; i < TOTAL_PAGE; i++) anchorPage[i].setLayoutX(-PAGE_WIDTH);
 
         nextButton.setOnAction(event -> {
             if(currPage < TOTAL_PAGE -1){
