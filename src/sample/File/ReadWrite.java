@@ -14,32 +14,33 @@ public class ReadWrite {
     private ReadWrite() {}
 
     public static void save(String path) {
-//        try {
-//            FileWriter fw = new FileWriter(path);
-//
-//            StringBuilder sb = new StringBuilder();
-//            boolean possibleSave = false;
-//
-//            for(int i = 0; i < Constants.ROW; i++) {
-//                for(int j = 0; j < Constants.COL; j++) {
-//                    if(MazeController.Grid[i][j] == Constants.wall)
-//                        possibleSave = true;
-//                    sb.append(MazeController.Grid[i][j]);
-//                }
-//                if(i != Constants.ROW-1) sb.append("\n");
-//            }
-//
-//            if(!possibleSave) { // the maze is not saved, delete the file, and close the FileWriter
-//                fw.close(); File file = new File(path);
-//                file.delete(); // delete the file if the file is empty
-//
-//                return;
-//            }
-//
-//            fw.write(sb.toString());
-//            fw.close();
-//        }
-//        catch (Exception ignored) { }
+        try {
+            FileWriter fw = new FileWriter(path);
+
+            StringBuilder sb = new StringBuilder();
+            boolean possibleSave = false;
+
+            for(int i = 0; i < Constants.ROW; i++) {
+                for(int j = 0; j < Constants.COL; j++) {
+                    if(MazeController.Grid[i][j].state == CellState.WALL)
+                        possibleSave = true;
+
+                    sb.append(StateNumeric.GetCharacter(MazeController.Grid[i][j].state));
+                }
+                if(i != Constants.ROW-1) sb.append("\n");
+            }
+
+            if(!possibleSave) { // the maze is not saved, delete the file, and close the FileWriter
+                fw.close(); File file = new File(path);
+                file.delete(); // delete the file if the file is empty
+
+                return;
+            }
+
+            fw.write(sb.toString());
+            fw.close();
+        }
+        catch (Exception ignored) { }
     }
 
     public static ArrayList<Cell> read(String path)

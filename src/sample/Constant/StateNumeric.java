@@ -16,4 +16,9 @@ public class StateNumeric {
         }
         return null;
     }
+
+    public static char GetCharacter(CellState state) {
+        if(state == CellState.WALL) return '2';
+        return '0';
+    }
 }
