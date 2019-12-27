@@ -7,7 +7,7 @@ import sample.MazeController;
 
 import java.util.*;
 
-public class Breadth_First extends ShortestPath {
+public class GrassfireBFS extends ShortestPath {
 
     @Override
     public void algorithm(Cell src, Cell des) {

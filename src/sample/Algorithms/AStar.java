@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class A_Search extends ShortestPath {
+public class AStar extends ShortestPath {
 
     private LinkedList<Cell> prevPath = null;
     public int shortestPath;

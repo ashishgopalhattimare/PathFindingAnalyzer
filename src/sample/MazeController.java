@@ -3,7 +3,6 @@ package sample;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -222,7 +221,7 @@ public class MazeController implements Initializable {
         for(int i = 0; i < 3; i++) currSD[i][0] = -1;
 
         algoOptions.getItems().addAll("Breadth First Search", "Depth First Search",
-                "Intermediate Shortest Path", "A* Algorithm", "Greedy Best-First");
+                "A* Algorithm", "Greedy Best-First");
 
         algoOptions.setOnAction(event -> algoIndex = algoOptions.getSelectionModel().getSelectedIndex());
 
@@ -239,7 +238,7 @@ public class MazeController implements Initializable {
                 Grid[i][j].setParent(-1,-1); // Set parent to null
                 Grid[i][j].visit = false;
 
-                if(algoIndex == 3) { // A-start Algorithm Implementation
+                if(algoIndex == 2) { // A-start Algorithm Implementation
                     Grid[i][j].AStarStateInitilization();
                 }
 
@@ -283,13 +282,13 @@ public class MazeController implements Initializable {
                 Constants.DFX_EXHAUSTIVE = dfsCheckBox.isSelected();
 
                 switch(algoIndex) {
-                    case 0: algo = new Breadth_First();
+                    case 0: algo = new GrassfireBFS();
                             break;
-                    case 1: algo = new Depth_First();
+                    case 1: algo = new DepthFirst();
                             break;
-                    case 3: algo = new A_Search();
+                    case 2: algo = new A_Search();
                             break;
-                    case 4: algo = new GreedyBest_First();
+                    case 3: algo = new GreedyBest_First();
                             break;
                 }
                 if(algo != null)

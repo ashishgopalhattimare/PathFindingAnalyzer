@@ -8,7 +8,7 @@ import sample.MazeController;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Depth_First extends ShortestPath {
+public class DepthFirst extends ShortestPath {
 
     public static boolean COMPLETE_DEPTHFIRST = false;
 
