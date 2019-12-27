@@ -14,6 +14,8 @@ public class AStar extends ShortestPath {
     private LinkedList<Cell> prevPath = null;
     public int shortestPath;
 
+    public AStar() {}
+
     @Override
     public void algorithm(Cell src, Cell des) {
         this.src = src; this.des = des;

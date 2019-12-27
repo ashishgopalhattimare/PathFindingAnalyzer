@@ -11,8 +11,9 @@ import java.util.LinkedList;
 public class DepthFirst extends ShortestPath {
 
     public static boolean COMPLETE_DEPTHFIRST = false;
-
     private LinkedList<Cell> prevPath = null;
+
+    public DepthFirst() {}
 
     @Override
     public void algorithm(Cell src, Cell des)

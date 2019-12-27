@@ -9,6 +9,8 @@ import java.util.*;
 
 public class GrassfireBFS extends ShortestPath {
 
+    public GrassfireBFS() {}
+
     @Override
     public void algorithm(Cell src, Cell des) {
         this.src = src;

@@ -31,9 +31,6 @@ public class TutorialController implements Initializable {
     private static final int PAGE_WIDTH = 400;
     private static final int TOTAL_PAGE = 5;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -96,18 +93,6 @@ public class TutorialController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("maze.fxml"));
             Stage primaryStage = new Stage();
 
-            root.setOnMousePressed((MouseEvent event) ->
-            {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            });
-
-            root.setOnMouseDragged((MouseEvent event) ->
-            {
-                primaryStage.setX(event.getScreenX() - xOffset);
-                primaryStage.setY(event.getScreenY() - yOffset);
-            });
-
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("PathFinder Analyzer");
             primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -115,6 +100,8 @@ public class TutorialController implements Initializable {
             primaryStage.show();
 
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored) {
+            ignored.printStackTrace();
+        }
     }
 }

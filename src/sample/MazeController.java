@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -28,51 +29,40 @@ import java.util.ResourceBundle;
 
 public class MazeController implements Initializable {
 
-    @FXML
-    private GridPane platform;
-    public static GridPane gp;
+    @FXML private GridPane platform;
 
-    @FXML
-    private ComboBox<String> algoOptions;
-    @FXML
-    private ToggleSwitch updateBorder;
+    @FXML private ComboBox<String> algoOptions;
+    @FXML private ToggleSwitch updateBorder;
 
-    @FXML
-    private JFXButton   clearButton, intermediateButton, pathButton, mazeButton, sourceButton,
+    @FXML private JFXButton   clearButton, intermediateButton, pathButton, mazeButton, sourceButton,
                         targetButton, drawButton, saveButton, loadButton, cancelButton;
-    @FXML
-    private JFXButton   visualButton;
-    @FXML
-    private JFXCheckBox diagonalCheckBox;
-    @FXML
-    private JFXCheckBox dfsCheckBox;
-    @FXML
-    private FlowPane labelPanel;
-    @FXML
-    private JFXButton minimizeButton;
-    @FXML
-    private JFXButton closeButton;
 
-    public static Label StatusLabel;
+    @FXML private JFXButton   visualButton;
+    @FXML private JFXCheckBox diagonalCheckBox;
+    @FXML private JFXCheckBox dfsCheckBox;
+    @FXML private FlowPane labelPanel;
+    @FXML private BorderPane movablePane;
+    @FXML private JFXButton minimizeButton;
+    @FXML private JFXButton closeButton;
+
+    public static GridPane gp;
 
     private CellState curState;
     private int algoIndex;
     private boolean applyColor;
 
-    int currSD[][] = new int[3][2];
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    private int[][] currSD = new int[3][2];
 
     public static BorderPane[][] borderGrid = new BorderPane[Constants.ROW][Constants.COL];
-
     public static Cell[][] Grid = new Cell[Constants.ROW][Constants.COL];
+
 
     void addBoxProperty(int i, int j) {
 
         BorderPane pane = new BorderPane();
-        Font f = new Font(5);
-        Label l = new Label("1");
-        l.setFont(f);
-
-        pane.getChildren().add(l);
 
         pane.setStyle("-fx-border-color: " + Constants.BORDER + "; -fx-background-color: " + Constants.UNVISITED + ";");
         platform.add(pane, j, i);
@@ -180,9 +170,8 @@ public class MazeController implements Initializable {
         clearButton.setDisable(show);
     }
 
-    private void resetGrid() {
-
-        System.out.println("resetGrid");
+    private void resetGrid()
+    {
         for (int i = 0; i < Constants.ROW; i++) {
             for (int j = 0; j < Constants.COL; j++) {
                 PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
@@ -199,6 +188,16 @@ public class MazeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        movablePane.setOnMousePressed((MouseEvent event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        movablePane.setOnMouseDragged((MouseEvent event) -> {
+            Stage stage = (Stage) minimizeButton.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
 
         platform.setStyle("-fx-border-color: " + Constants.WALL);
         gp = platform;
@@ -225,9 +224,9 @@ public class MazeController implements Initializable {
 
         algoOptions.setOnAction(event -> algoIndex = algoOptions.getSelectionModel().getSelectedIndex());
 
-        algoIndex = -1;
         applyColor = false;
         curState = null;
+        algoIndex = -1;
     }
 
     private void updateGrid() {
@@ -286,9 +285,9 @@ public class MazeController implements Initializable {
                             break;
                     case 1: algo = new DepthFirst();
                             break;
-                    case 2: algo = new A_Search();
+                    case 2: algo = new AStar();
                             break;
-                    case 3: algo = new GreedyBest_First();
+                    case 3: algo = new GreedyBestFirst();
                             break;
                 }
                 if(algo != null)

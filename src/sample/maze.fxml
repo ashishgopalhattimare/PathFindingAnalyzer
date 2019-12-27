@@ -24,6 +24,7 @@
          <children>
             <FlowPane alignment="TOP_RIGHT" prefHeight="31.0" prefWidth="1015.0" style="-fx-background-color: black;">
                <children>
+                  <BorderPane fx:id="movablePane" prefHeight="30.0" prefWidth="946.0" />
                   <JFXButton fx:id="minimizeButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">

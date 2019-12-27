@@ -9,10 +9,12 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class GreedyBest_First extends ShortestPath {
+public class GreedyBestFirst extends ShortestPath {
 
     private LinkedList<Cell> prevPath = null;
     public int shortestPath;
+
+    public GreedyBestFirst() {}
 
     @Override
     public void algorithm(Cell src, Cell des) {
