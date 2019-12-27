@@ -17,7 +17,7 @@ PathFinding Analyzer is a visualization tool which is focused on shortest path a
 	The Space Complexity of the BFS algorithm is b^d (branching factor raised to the depth of the graph).
 
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/BFS_GIF.gif" width="50%">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/BFS_GIF.gif" width="40%">
 </p>
 <p align="center"> <i>Fig 1.1 Demo of the Breadth-First Search (BFS) Algorithm</i> </p>
 
@@ -30,7 +30,7 @@ PathFinding Analyzer is a visualization tool which is focused on shortest path a
 	The Space Complexity of the DFS algorithm is O(log(d)) where is 'd' is the depth of the graph.
 
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/DFS_GIF.gif" width="50%">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/DFS_GIF.gif" width="40%">
 </p>
 <p align="center"> <i>Fig 1.2 Demo of the Depth-First Search (DFS) Algorithm</i> </p>
 
@@ -46,7 +46,7 @@ On a map with many obstacles, pathfinding from points  AA  to  BB  can be diffic
 	To know more about the A\* Algorithm, follow this [*link*](https://brilliant.org/wiki/a-star-search/).
   
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Astar_GIF.gif" width="50%">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Astar_GIF.gif" width="40%">
 </p>
 <p align="center"> <i>Fig 1.3 Demo of the A* Search Algorithm</i> </p>
 
@@ -57,7 +57,7 @@ On a map with many obstacles, pathfinding from points  AA  to  BB  can be diffic
 	To know more about the GBFS Algorithm, follow this [*link*](https://pdfs.semanticscholar.org/96b1/4928aa2cdcb60e29ac68be39e8a91069c875.pdf).
 	
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Greedy_GIF.gif" width="50%">
+  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/Greedy_GIF.gif" width="40%">
 </p>
 <p align="center"> <i>Fig 1.3 Demo of the Greedy Best-First Search (GBFS) Algorithm</i> </p>
 
