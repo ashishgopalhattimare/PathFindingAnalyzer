@@ -41,9 +41,6 @@ public class MazeController implements Initializable {
     @FXML private JFXCheckBox diagonalCheckBox;
     @FXML private JFXCheckBox dfsCheckBox;
     @FXML private FlowPane labelPanel;
-    @FXML private BorderPane movablePane;
-    @FXML private JFXButton minimizeButton;
-    @FXML private JFXButton closeButton;
 
     public static GridPane gp;
 
@@ -189,6 +186,7 @@ public class MazeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+         /**
         movablePane.setOnMousePressed((MouseEvent event) -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
@@ -210,6 +208,7 @@ public class MazeController implements Initializable {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         });
+         **/
 
         for(int i = 0; i < Constants.ROW; i++) {
             for(int j = 0; j < Constants.COL; j++) {
