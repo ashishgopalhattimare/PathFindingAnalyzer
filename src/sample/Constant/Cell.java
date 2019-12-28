@@ -5,8 +5,8 @@ public class Cell {
     public int i, j, distance; // distance is 'g'
     public int p_i, p_j;
 
-    public double f, g, h;
-    public boolean visit;
+    public long f, g, h;
+    public boolean inPQ;
 
     public CellState state;
 
@@ -19,7 +19,8 @@ public class Cell {
 
     public void AStarStateInitilization() {
         this.f = this.g =
-                this.h = Float.MAX_VALUE;
+                this.h = Long.MAX_VALUE;
+        this.inPQ = false;
     }
 
     public void setParent(int i, int j) {
@@ -29,15 +30,11 @@ public class Cell {
     @Override
     public String toString() {
         return "Cell{" +
-                "\ni=" + i +
-                ",\nj=" + j +
-                ",\ndistance=" + distance +
-                ",\np_i=" + p_i +
-                ",\np_j=" + p_j +
-                ",\nf=" + f +
-                ",\ng=" + g +
-                ",\nh=" + h +
-                ",\nstate=" + state +
+                "i=" + i +
+                ", j=" + j +
+                ", f=" + f +
+                ", g=" + g +
+                ", h=" + h +
                 '}';
     }
 }

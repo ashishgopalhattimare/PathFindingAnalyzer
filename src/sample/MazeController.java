@@ -231,7 +231,6 @@ public class MazeController implements Initializable {
             for (int j = 0; j < Constants.COL; j++) {
 
                 Grid[i][j].setParent(-1,-1); // Set parent to null
-                Grid[i][j].visit = false;
 
                 if(algoIndex == 2) { // A-start Algorithm Implementation
                     Grid[i][j].AStarStateInitilization();

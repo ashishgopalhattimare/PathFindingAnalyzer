@@ -5,6 +5,7 @@ import sample.Constant.Constants;
 import sample.Constant.Cell;
 import sample.MazeController;
 
+import javax.print.attribute.standard.Destination;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -13,8 +14,6 @@ public class AStar extends ShortestPath {
 
     private LinkedList<Cell> prevPath = null;
     public int shortestPath;
-
-    private final int CELL_WEIGHT = 1;
 
     public AStar() {}
 
@@ -31,21 +30,23 @@ public class AStar extends ShortestPath {
 
         PriorityQueue<Cell> pq = new PriorityQueue<Cell>(new ComparePoint(des));
         Cell curr, temp;
-        double gNew, hNew, fNew;
+        long gNew, hNew, fNew;
 
-        src.f = src.g = src.h = 0.0;
-        src.distance = 0;
+        src.f = src.g = src.h = 0;
 
-        pq.add(src);
+        src.inPQ = true; pq.add(src);
 
         try {
             while (!pq.isEmpty() && !pathFound && runThread) {
 
                 curr = pq.poll();
-                curr.visit = true;
+//                System.out.println("Current Cell : " + curr);
 
                 if (!samePoint(src, curr)) // Ignore the source node
+                {
                     MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
+                    curr.state = CellState.VISITED;
+                }
 
                 for (int k = 0; k < Constants.TRAVERSAL_LEN; k++) {
 
@@ -53,45 +54,50 @@ public class AStar extends ShortestPath {
 
                         temp = MazeController.Grid[curr.i + Y[k]][curr.j + X[k]];
 
-                        if(curr.distance < temp.distance) {
-
-                            if(samePoint(temp, des)){ // IF THE TARGET IS REACHED
-
-                                if(curr.distance < shortestPath) {
-                                    temp.setParent(curr.i, curr.j);
-                                    if(prevPath != null) {
-                                        colorPath(prevPath, Constants.VISITED, false);
-                                    }
-                                    shortestPath = curr.distance;
-                                    tracePath(temp);
-
-                                    pathFound = true;
-                                    break;
-                                }
+                        if(samePoint(temp, des)){ // TARGET IS REACHED
+                            temp.setParent(curr.i, curr.j);
+                            if(prevPath != null) {
+                                colorPath(prevPath, Constants.VISITED, false);
                             }
-                            else {
-                                if(!temp.visit && temp.state != CellState.WALL && temp.state != CellState.SOURCE && temp.state != CellState.TARGET)
+                            tracePath(temp);
+
+                            shortestPath = (int) temp.g;
+                            pathFound = true;
+                            break;
+                        }
+                        else {
+                            // Neither VISITED, WALL OR SOURCE
+                            if(temp.state != CellState.VISITED && temp.state != CellState.WALL &&
+                                    temp.state != CellState.SOURCE)
+                            {
+                                if(k < 4) gNew = curr.g + Constants.MOVE_STRAIGHT; // E-W-N-S     + 1.0
+                                else gNew = curr.g + Constants.MOVE_DIAGONAL;      // NW-NW-SW-SE + 1.414
+
+                                hNew = calculateDistance(temp);
+                                fNew = gNew + hNew;
+
+                                if(temp.f == Float.MAX_VALUE || temp.f > fNew)
                                 {
-                                    gNew = curr.g + CELL_WEIGHT;
-                                    hNew = Math.sqrt(ComparePoint.calculateHValue(temp));
-                                    fNew = gNew + hNew;
+                                    temp.f = fNew; temp.g = gNew; temp.h = hNew;
+                                    temp.setParent(curr.i, curr.j);
 
-                                    if(temp.f == Float.MAX_VALUE || temp.f > fNew) {
+                                    MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
 
-                                        temp.f = fNew; temp.g = gNew; temp.h = hNew;
-                                        temp.setParent(curr.i, curr.j);
-
-                                        temp.distance = curr.distance + 1;
-
-                                        MazeController.PaintBlock(temp.i, temp.j, Constants.BORDER, Constants.NEXT_VISIT);
-                                        pq.add(temp);
+                                    if(!temp.inPQ) {
+//                                        System.out.println("Into PQ : " + temp);
+                                        temp.inPQ = true; pq.add(temp);
                                     }
+//                                    else {
+//                                        System.out.println("Updated : "  + temp);
+//                                    }
                                 }
                             }
                         }
                     }
                 }
                 Thread.sleep(Constants.SLEEP_TIME);
+
+                if(!pq.isEmpty()) pq.add(pq.poll());
             }
         }
         catch (Exception ignored) {}
@@ -115,6 +121,25 @@ public class AStar extends ShortestPath {
         prevPath = shortestPath;
         colorPath(shortestPath, Constants.SHORTEST, true);
     }
+
+    private int calculateDistance(Cell curr)
+    {
+        return Math.min(diagonal(curr, Math.abs(des.i-curr.i)), diagonal(curr, Math.abs(des.j-curr.j)));
+    }
+
+    private int diagonal(Cell curr, int diagonal)
+    {
+        int fi = 1, fj = 1;
+        if(curr.j < des.j) fj=-1;
+        if(curr.i < des.i) fi=-1;
+
+        int newI = des.i + fi*diagonal;
+        int newJ = des.j + fj*diagonal;
+
+        int straight = Math.abs(curr.j-newJ) + Math.abs(curr.i-newI);
+
+        return diagonal * Constants.MOVE_DIAGONAL + straight * Constants.MOVE_STRAIGHT;
+    }
 }
 
 class ComparePoint implements Comparator<Cell> {
@@ -127,6 +152,18 @@ class ComparePoint implements Comparator<Cell> {
 
     @Override
     public int compare(Cell cell1, Cell cell2) {
+        if(cell1.f == cell2.f) {// same f
+            if(cell1.h == cell2.h) { // same h
+                if(calculateHValue(cell1) < calculateHValue(cell2)) {
+                    return -1;
+                }
+                return 1;
+            }
+            else if(cell1.h < cell2.h) {
+                return -1;
+            }
+            return 0;
+        }
         if(cell1.f < cell2.f) return -1;
         return 1;
     }

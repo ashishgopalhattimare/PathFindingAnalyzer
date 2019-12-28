@@ -30,6 +30,9 @@ public class Constants
     public static final int SHORT_TIME      = 30;
     public static final int MAZE_TIME       = 01;
 
+    public static final int MOVE_STRAIGHT = 10;
+    public static final int MOVE_DIAGONAL = 14;
+
     public static final int NON_DIAGONAL = 4;
     public static final int DIAGONAL = 8;
     public static int TRAVERSAL_LEN;
