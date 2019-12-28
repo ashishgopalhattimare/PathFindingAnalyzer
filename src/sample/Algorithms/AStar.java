@@ -5,7 +5,6 @@ import sample.Constant.Constants;
 import sample.Constant.Cell;
 import sample.MazeController;
 
-import javax.print.attribute.standard.Destination;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -16,14 +15,6 @@ public class AStar extends ShortestPath {
     public int shortestPath;
 
     public AStar() {}
-
-    @Override
-    public void algorithm(Cell src, Cell des) {
-        this.src = src; this.des = des;
-
-        this.shortestPath = Integer.MAX_VALUE;
-        pathFound = false; runThread = true;
-    }
 
     @Override
     public void run() {

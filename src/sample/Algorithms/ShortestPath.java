@@ -15,11 +15,17 @@ public abstract class ShortestPath extends Thread {
 
     protected Cell src;
     protected Cell des;
+
     protected boolean runThread;
     protected boolean pathFound;
     protected int shortestPath;
 
-    public abstract void algorithm(Cell src, Cell des);
+    public void algorithm(Cell src, Cell des) {
+        this.src = src; this.des = des;
+
+        shortestPath = Integer.MAX_VALUE;
+        pathFound = false; runThread = true;
+    }
 
     public boolean inRange(int r, int c) {
         return (r >= 0 && r < Constants.ROW) && (c >= 0 && c < Constants.COL);

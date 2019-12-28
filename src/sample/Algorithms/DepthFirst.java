@@ -5,7 +5,6 @@ import sample.Constant.Constants;
 import sample.Constant.Cell;
 import sample.MazeController;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class DepthFirst extends ShortestPath {
@@ -14,16 +13,6 @@ public class DepthFirst extends ShortestPath {
     private LinkedList<Cell> prevPath = null;
 
     public DepthFirst() {}
-
-    @Override
-    public void algorithm(Cell src, Cell des)
-    {
-        this.src = src;
-        this.des = des;
-
-        shortestPath = Integer.MAX_VALUE;
-        pathFound = false; runThread = true;
-    }
 
     private void DFS(Cell curr) {
 

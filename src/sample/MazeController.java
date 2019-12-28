@@ -37,7 +37,6 @@ public class MazeController implements Initializable {
     @FXML private JFXButton   visualButton;
     @FXML private JFXCheckBox diagonalCheckBox;
     @FXML private JFXCheckBox dfsCheckBox;
-    @FXML private FlowPane labelPanel;
 
     public static GridPane GridPanel;
 
@@ -65,7 +64,7 @@ public class MazeController implements Initializable {
         pane.setOnMouseEntered(event -> {
             if(curState == CellState.WALL) {
                 // NEED TO WORK ON THIS FUNCTION
-                if(Grid[i][j].state != CellState.SOURCE && Grid[i][j].state != CellState.TARGET) {
+                if(Grid[i][j].state != CellState.SOURCE && Grid[i][j].state != CellState.TARGET && Grid[i][j].state != CellState.INTERMEDIATE) {
                     if(applyColor) {
                         pane.setStyle("-fx-border-color: " + Constants.BORDER + "; -fx-background-color: " + Constants.WALL + ";");
                         Grid[i][j].state = CellState.WALL;
@@ -73,7 +72,7 @@ public class MazeController implements Initializable {
                 }
             }
             else if(curState == CellState.UNVISITED) {
-                if(Grid[i][j].state != CellState.SOURCE && Grid[i][j].state != CellState.TARGET) {
+                if(Grid[i][j].state != CellState.SOURCE && Grid[i][j].state != CellState.TARGET && Grid[i][j].state != CellState.INTERMEDIATE) {
                     if(applyColor) {
                         pane.setStyle("-fx-border-color: " + Constants.BORDER + "; -fx-background-color: " + Constants.UNVISITED + ";");
                         Grid[i][j].state = CellState.UNVISITED;
@@ -83,6 +82,10 @@ public class MazeController implements Initializable {
         });
 
         pane.setOnMouseClicked(event -> {
+
+            // 0 -> source
+            // 1 -> target
+            // 2 -> intermediate
 
             if(curState == CellState.SOURCE) {
                 if(Grid[i][j].state == CellState.SOURCE) { // Remove it from the board
@@ -111,13 +114,14 @@ public class MazeController implements Initializable {
                 }
             }
             else if(curState == CellState.INTERMEDIATE) {
+
                 if(Grid[i][j].state == CellState.INTERMEDIATE) {
                     unvisitPreviousBlock(2);
                     currSD[2][0] = -1; currSD[2][1] = -1;
 
                     Grid[i][j].state = CellState.UNVISITED;
                 }
-                else { // first time or change somewhere else
+                else if(Grid[i][j].state == CellState.UNVISITED) {
                     unvisitPreviousBlock(2);
 
                     PaintBlock(i, j, Constants.BORDER, Constants.INTERMEDIATE);
@@ -253,6 +257,12 @@ public class MazeController implements Initializable {
         PaintBlock(currSD[0][0], currSD[0][1], Constants.BORDER, Constants.SOURCE);
         PaintBlock(currSD[1][0], currSD[1][1], Constants.BORDER, Constants.TARGET);
 
+        if(currSD[2][0] != -1)
+        {
+            PaintBlock(currSD[2][0], currSD[2][1], Constants.BORDER, Constants.INTERMEDIATE);
+            Grid[currSD[2][0]][currSD[2][1]].state = CellState.INTERMEDIATE;
+        }
+
         Grid[currSD[0][0]][currSD[0][1]].state = CellState.SOURCE;
         Grid[currSD[1][0]][currSD[1][1]].state = CellState.TARGET;
     }
@@ -304,6 +314,7 @@ public class MazeController implements Initializable {
 
     @FXML void clearBoardActionEvent(ActionEvent event) {
 
+        System.out.println("CLEAR GRID");
         for(int i = 0; i < Constants.ROW; i++) {
             for (int j = 0; j < Constants.COL; j++) {
                 PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
@@ -313,6 +324,8 @@ public class MazeController implements Initializable {
 
         if(currSD[0][0] != -1) PaintBlock(currSD[0][0], currSD[0][1], Constants.BORDER, Constants.SOURCE);
         if(currSD[1][0] != -1) PaintBlock(currSD[1][0], currSD[1][1], Constants.BORDER, Constants.TARGET);
+
+        currSD[2][0] = -1; // remove the intermediate
     }
 
     @FXML void clearPathActionEvent(ActionEvent event) {
@@ -330,6 +343,7 @@ public class MazeController implements Initializable {
 
         if(currSD[0][0] != -1) PaintBlock(currSD[0][0], currSD[0][1], Constants.BORDER, Constants.SOURCE);
         if(currSD[1][0] != -1) PaintBlock(currSD[1][0], currSD[1][1], Constants.BORDER, Constants.TARGET);
+        if(currSD[2][0] != -1) PaintBlock(currSD[2][0], currSD[2][1], Constants.BORDER, Constants.INTERMEDIATE);
     }
 
     @FXML void mazeActionEvent(ActionEvent event) {

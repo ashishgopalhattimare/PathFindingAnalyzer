@@ -12,17 +12,8 @@ import java.util.PriorityQueue;
 public class GreedyBestFirst extends ShortestPath {
 
     private LinkedList<Cell> prevPath = null;
-    public int shortestPath;
 
     public GreedyBestFirst() {}
-
-    @Override
-    public void algorithm(Cell src, Cell des) {
-        this.src = src; this.des = des;
-
-        this.shortestPath = Integer.MAX_VALUE;
-        pathFound = false; runThread = true;
-    }
 
     @Override
     public void run() {

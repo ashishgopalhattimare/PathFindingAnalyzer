@@ -12,15 +12,6 @@ public class GrassfireBFS extends ShortestPath {
     public GrassfireBFS() {}
 
     @Override
-    public void algorithm(Cell src, Cell des) {
-        this.src = src;
-        this.des = des;
-
-        shortestPath = Integer.MAX_VALUE;
-        pathFound = false; runThread = true;
-    }
-
-    @Override
     public void run() {
 
         Queue<Cell> queue = new LinkedList<>();
