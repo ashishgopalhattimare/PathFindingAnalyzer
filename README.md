@@ -2,7 +2,9 @@
 
 PathFinding Analyzer is a visualization tool which is focused on shortest path algorithms in Graph. The application has different algorithms which are designed for a 2D Grid, where the cost between the two consecutive cells is 1.
 
-To run this application, use can click on this [link](https://github.com/ashishgopalhattimare/PathFinderAnalyzer/raw/master/jar%20run/PathFinderAnalyzer.jar) to download the Executable JAR of the application.
+
+To run this application, use can click on this [*link*](https://github.com/ashishgopalhattimare/PathFinderAnalyzer/raw/master/jar%20run/PathFinderAnalyzer.jar) to download the Executable JAR of the application.
+
 
 <p align="center">
   <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/INFO_GIF.gif" width="30%">
