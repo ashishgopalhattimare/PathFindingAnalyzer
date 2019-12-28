@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="PathFinderAnalyzer:jar">
+  <artifact type="jar" name="PathFinderAnalyzer:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/PathFinderAnalyzer_jar</output-path>
     <root id="archive" name="PathFinderAnalyzer.jar">
       <element id="module-output" name="PathFinderAnalyzer" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/controlsfx-8.40.15.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/jfoenix-8.0.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/controlsfx-8.40.15.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
