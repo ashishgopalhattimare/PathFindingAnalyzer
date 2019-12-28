@@ -42,7 +42,7 @@ public class AStar extends ShortestPath {
                 curr = pq.poll();
 //                System.out.println("Current Cell : " + curr);
 
-                if (!samePoint(src, curr)) // Ignore the source node
+                if (!samePoint(src, curr))
                 {
                     MazeController.PaintBlock(curr.i, curr.j, Constants.BORDER, Constants.VISITED);
                     curr.state = CellState.VISITED;
