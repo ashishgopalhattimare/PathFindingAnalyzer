@@ -44,16 +44,14 @@ public class MazeController implements Initializable {
     private int algoIndex;
     private boolean applyColor;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     private int[][] currSD = new int[3][2];
 
     public static BorderPane[][] borderGrid = new BorderPane[Constants.ROW][Constants.COL];
     public static Cell[][] Grid = new Cell[Constants.ROW][Constants.COL];
 
 
-    void addBoxProperty(int i, int j) {
+    void constructCell(int i, int j)
+    {
 
         BorderPane pane = new BorderPane();
 
@@ -151,70 +149,56 @@ public class MazeController implements Initializable {
         Grid[i][j].state = CellState.UNVISITED; // is it default
     }
 
-    private void unvisitPreviousBlock(int row) {
+    private void unvisitPreviousBlock(int row)
+    {
         if(currSD[row][0] != -1) {
             PaintBlock(currSD[row][0], currSD[row][1], Constants.BORDER, Constants.UNVISITED);
             Grid[currSD[row][0]][currSD[row][1]].state = CellState.UNVISITED;
         }
     }
 
-    public synchronized static void PaintBlock(int i, int j, String border, String fill) {
+    public synchronized static void PaintBlock(int i, int j, String border, String fill)
+    {
         borderGrid[i][j].setStyle("-fx-border-color: " + border + "; -fx-background-color: " + fill + ";");
     }
 
-    private void buttonStateChange(boolean show) {
+    private void buttonStateChange(boolean show)
+    {
         pathButton.setDisable(show); mazeButton.setDisable(show);
         intermediateButton.setDisable(show);
         clearButton.setDisable(show);
     }
 
-    private void resetGrid()
+    public static void UpdateBorder(String color)
     {
-        for (int i = 0; i < Constants.ROW; i++) {
+        if(Constants.UPDATE_BORDER) {
+            GridPanel.setStyle("-fx-border-color: " + color);
+        }
+    }
+
+    private void clearBoardPath(boolean keepPath)
+    {
+        for(int i = 0; i < Constants.ROW; i++) {
             for (int j = 0; j < Constants.COL; j++) {
+
+                if(keepPath && Grid[i][j].state == CellState.WALL) continue;
+
                 PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
                 Grid[i][j].state = CellState.UNVISITED;
             }
         }
     }
 
-    public static void UpdateBorder(String color) {
-        if(Constants.UPDATE_BORDER) {
-            GridPanel.setStyle("-fx-border-color: " + color);
-        }
-    }
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-         /**
-        movablePane.setOnMousePressed((MouseEvent event) -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        movablePane.setOnMouseDragged((MouseEvent event) -> {
-            Stage stage = (Stage) minimizeButton.getScene().getWindow();
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });
-
-        minimizeButton.setOnAction(event -> {
-            Stage stage = (Stage) minimizeButton.getScene().getWindow();
-            stage.setIconified(true);
-        });
-        closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-        });
-         **/
-
+    public void initialize(URL location, ResourceBundle resources)
+    {
         platform.setStyle("-fx-border-color: " + Constants.WALL);
         GridPanel = platform;
 
         for(int i = 0; i < Constants.ROW; i++) {
             for(int j = 0; j < Constants.COL; j++) {
                 Grid[i][j] = new Cell(i, j);
-                addBoxProperty(i, j);
+                constructCell(i, j);
             }
         }
         for(int i = 0; i < 3; i++) currSD[i][0] = -1;
@@ -229,16 +213,14 @@ public class MazeController implements Initializable {
         algoIndex = -1;
     }
 
-    private void updateGrid() {
-
+    private void updateGrid()
+    {
         for(int i = 0; i < Constants.ROW; i++) {
             for (int j = 0; j < Constants.COL; j++) {
 
                 Grid[i][j].setParent(-1,-1); // Set parent to null
 
-                if(algoIndex == 2) { // A-start Algorithm Implementation
-                    Grid[i][j].AStarStateInitilization();
-                }
+                if(algoIndex == 2) Grid[i][j].AStarStateInitilization();
 
                 // Remove Everything except the walls
                 if(Grid[i][j].state != CellState.WALL) {
@@ -267,8 +249,8 @@ public class MazeController implements Initializable {
         Grid[currSD[1][0]][currSD[1][1]].state = CellState.TARGET;
     }
 
-    @FXML void visualActionEvent(ActionEvent event) {
-
+    @FXML void visualActionEvent(ActionEvent event)
+    {
         // If both the source and destination points are given
         applyColor = false;
         if(Constants.currentThread == null) {
@@ -312,15 +294,10 @@ public class MazeController implements Initializable {
         }
     }
 
-    @FXML void clearBoardActionEvent(ActionEvent event) {
-
+    @FXML void clearBoardActionEvent(ActionEvent event)
+    {
         System.out.println("CLEAR GRID");
-        for(int i = 0; i < Constants.ROW; i++) {
-            for (int j = 0; j < Constants.COL; j++) {
-                PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
-                Grid[i][j].state = CellState.UNVISITED;
-            }
-        }
+        clearBoardPath(false);
 
         if(currSD[0][0] != -1) PaintBlock(currSD[0][0], currSD[0][1], Constants.BORDER, Constants.SOURCE);
         if(currSD[1][0] != -1) PaintBlock(currSD[1][0], currSD[1][1], Constants.BORDER, Constants.TARGET);
@@ -328,18 +305,10 @@ public class MazeController implements Initializable {
         currSD[2][0] = -1; // remove the intermediate
     }
 
-    @FXML void clearPathActionEvent(ActionEvent event) {
-
-        System.out.println("clearPath");
-        for(int i = 0; i < Constants.ROW; i++) {
-            for (int j = 0; j < Constants.COL; j++) {
-
-                if(Grid[i][j].state == CellState.WALL) continue;
-
-                PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
-                Grid[i][j].state = CellState.UNVISITED;
-            }
-        }
+    @FXML void clearPathActionEvent(ActionEvent event)
+    {
+        System.out.println("CLEAR PATH ONLY");
+        clearBoardPath(true);
 
         if(currSD[0][0] != -1) PaintBlock(currSD[0][0], currSD[0][1], Constants.BORDER, Constants.SOURCE);
         if(currSD[1][0] != -1) PaintBlock(currSD[1][0], currSD[1][1], Constants.BORDER, Constants.TARGET);
@@ -347,23 +316,22 @@ public class MazeController implements Initializable {
     }
 
     @FXML void mazeActionEvent(ActionEvent event) {
-
         System.out.println("Load Random Maze");
-
     }
 
-    @FXML void drawMazeActionEvent(ActionEvent event) {
-
+    @FXML void drawMazeActionEvent(ActionEvent event)
+    {
+        System.out.println("DRAW MAZE");
         buttonStateChange(true); // enable the other buttons
         applyColor = false;
-        resetGrid();
+        clearBoardPath(false);
 
         cancelButton.setDisable(false); saveButton.setDisable(false);
         drawButton.setDisable(true);
     }
 
-    @FXML void saveMazeActionEvent(ActionEvent event) {
-
+    @FXML void saveMazeActionEvent(ActionEvent event)
+    {
         String filePath = Constants.MAZE_DIRECT + Constants.DEFAULT_SAVE;
 
         FileChooser fileChooser = new FileChooser();
@@ -384,13 +352,12 @@ public class MazeController implements Initializable {
         drawButton.setDisable(false);
     }
 
-    @FXML void cancelMazeActionEvent(ActionEvent event) {
-
+    @FXML void cancelMazeActionEvent(ActionEvent event)
+    {
         if(Constants.currentThread != null) Constants.currentThread.killThread();
         Constants.currentThread = null;
 
         UpdateBorder(Constants.WALL);
-
         applyColor = false;
 
         saveButton.setDisable(false); loadButton.setDisable(false); drawButton.setDisable(false);
@@ -400,8 +367,8 @@ public class MazeController implements Initializable {
         cancelButton.setDisable(true);
     }
 
-    @FXML void loadMazeActionEvent(ActionEvent event) {
-
+    @FXML void loadMazeActionEvent(ActionEvent event)
+    {
         String filePath = Constants.MAZE_DIRECT + Constants.DEFAULT_LOAD;
 
         FileChooser fileChooser = new FileChooser();
@@ -440,15 +407,17 @@ public class MazeController implements Initializable {
             });
             thread.start();
         }
-
         saveButton.setDisable(false);
     }
 
-    @FXML void wallActionEvent(ActionEvent event) {
+    @FXML void wallActionEvent(ActionEvent event)
+    {
         curState = CellState.WALL;
         applyColor = false;
     }
-    @FXML void unvisitedActionEvent(ActionEvent event){
+
+    @FXML void unvisitedActionEvent(ActionEvent event)
+    {
         curState = CellState.UNVISITED;
         applyColor = false;
     }
