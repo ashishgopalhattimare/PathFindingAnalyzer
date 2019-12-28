@@ -88,10 +88,10 @@ public class MazeController implements Initializable {
             if(curState == CellState.SOURCE) {
                 if(Grid[i][j].state == CellState.SOURCE) { // Remove it from the board
                     Grid[i][j].state = CellState.UNVISITED;
-                    unvisitPreviousBlock(0);
+                    unVisitPreviousBlock(0);
                 }
                 else if(Grid[i][j].state == CellState.UNVISITED) {
-                    unvisitPreviousBlock(0);
+                    unVisitPreviousBlock(0);
                     PaintBlock(i, j, Constants.BORDER, Constants.SOURCE);
                     currSD[0][0] = i; currSD[0][1] = j;
 
@@ -101,10 +101,10 @@ public class MazeController implements Initializable {
             else if(curState == CellState.TARGET) {
                 if(Grid[i][j].state == CellState.TARGET) { // Remove it from the board
                     Grid[i][j].state = CellState.UNVISITED;
-                    unvisitPreviousBlock(1);
+                    unVisitPreviousBlock(1);
                 }
                 else if(Grid[i][j].state == CellState.UNVISITED) {
-                    unvisitPreviousBlock(1);
+                    unVisitPreviousBlock(1);
                     PaintBlock(i, j, Constants.BORDER, Constants.TARGET);
                     currSD[1][0] = i; currSD[1][1] = j;
 
@@ -114,13 +114,13 @@ public class MazeController implements Initializable {
             else if(curState == CellState.INTERMEDIATE) {
 
                 if(Grid[i][j].state == CellState.INTERMEDIATE) {
-                    unvisitPreviousBlock(2);
+                    unVisitPreviousBlock(2);
                     currSD[2][0] = -1; currSD[2][1] = -1;
 
                     Grid[i][j].state = CellState.UNVISITED;
                 }
                 else if(Grid[i][j].state == CellState.UNVISITED) {
-                    unvisitPreviousBlock(2);
+                    unVisitPreviousBlock(2);
 
                     PaintBlock(i, j, Constants.BORDER, Constants.INTERMEDIATE);
                     Grid[i][j].state = CellState.INTERMEDIATE;
@@ -149,7 +149,7 @@ public class MazeController implements Initializable {
         Grid[i][j].state = CellState.UNVISITED; // is it default
     }
 
-    private void unvisitPreviousBlock(int row)
+    private void unVisitPreviousBlock(int row)
     {
         if(currSD[row][0] != -1) {
             PaintBlock(currSD[row][0], currSD[row][1], Constants.BORDER, Constants.UNVISITED);
