@@ -37,8 +37,8 @@ public class AStar extends ShortestPath {
         src.inPQ = true; pq.add(src);
 
         try {
-            while (!pq.isEmpty() && !pathFound && runThread) {
-
+            while (!pq.isEmpty() && !pathFound && runThread)
+            {
                 curr = pq.poll();
 //                System.out.println("Current Cell : " + curr);
 
@@ -48,13 +48,13 @@ public class AStar extends ShortestPath {
                     curr.state = CellState.VISITED;
                 }
 
-                for (int k = 0; k < Constants.TRAVERSAL_LEN; k++) {
-
-                    if (inRange(curr.i + Y[k], curr.j + X[k])) {
-
+                for (int k = 0; k < Constants.TRAVERSAL_LEN; k++)
+                {
+                    if (inRange(curr.i + Y[k], curr.j + X[k]))
+                    {
                         temp = MazeController.Grid[curr.i + Y[k]][curr.j + X[k]];
 
-                        if(samePoint(temp, des)){ // TARGET IS REACHED
+                        if(samePoint(temp, des)) { // TARGET IS REACHED
                             temp.setParent(curr.i, curr.j);
                             if(prevPath != null) {
                                 colorPath(prevPath, Constants.VISITED, false);
@@ -70,8 +70,8 @@ public class AStar extends ShortestPath {
                             if(temp.state != CellState.VISITED && temp.state != CellState.WALL &&
                                     temp.state != CellState.SOURCE)
                             {
-                                if(k < 4) gNew = curr.g + Constants.MOVE_STRAIGHT; // E-W-N-S     + 1.0
-                                else gNew = curr.g + Constants.MOVE_DIAGONAL;      // NW-NW-SW-SE + 1.414
+                                if(k < 4) gNew = curr.g + Constants.MOVE_STRAIGHT; // E-W-N-S     + 10
+                                else gNew = curr.g + Constants.MOVE_DIAGONAL;      // NW-NW-SW-SE + 14
 
                                 hNew = calculateDistance(temp);
                                 fNew = gNew + hNew;
@@ -110,11 +110,10 @@ public class AStar extends ShortestPath {
         System.out.println("Return A* Search Algorithm Thread");
     }
 
-    public void tracePath(Cell temp) {
-
+    public void tracePath(Cell temp)
+    {
         LinkedList<Cell> shortestPath = new LinkedList<>();
         while (temp.state != CellState.SOURCE) {
-
             shortestPath.addFirst(temp);
             temp = MazeController.Grid[temp.p_i][temp.p_j];
         }
@@ -130,6 +129,7 @@ public class AStar extends ShortestPath {
     private int diagonal(Cell curr, int diagonal)
     {
         int fi = 1, fj = 1;
+
         if(curr.j < des.j) fj=-1;
         if(curr.i < des.i) fi=-1;
 
@@ -142,8 +142,8 @@ public class AStar extends ShortestPath {
     }
 }
 
-class ComparePoint implements Comparator<Cell> {
-
+class ComparePoint implements Comparator<Cell>
+{
     public static Cell dest;
 
     public ComparePoint(Cell dest) {
