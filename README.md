@@ -8,7 +8,7 @@ To run this application, use can click on this [*link*](https://github.com/ashis
 
 
 <p align="center">
-  <img src="https://github.com/ashishgopalhattimare/PathFinderAnalyzer/blob/master/videos/INFO_GIF.gif" width="30%">
+  <img src="https://github.com/ashishgopalhattimare/PathFindingAnalyzer/blob/master/videos/INFO_GIF.gif" width="30%">
 </p>
 <p align="center"> <i>Fig 1.0 Tutorial to the PathFinding Analyzer</i> </p>
 
