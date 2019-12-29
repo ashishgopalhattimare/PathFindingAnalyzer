@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PathFinderAnalyzer.iml" filepath="$PROJECT_DIR$/PathFinderAnalyzer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PathFindingAnalyzer.iml" filepath="$PROJECT_DIR$/PathFindingAnalyzer.iml" />
     </modules>
   </component>
 </project>
