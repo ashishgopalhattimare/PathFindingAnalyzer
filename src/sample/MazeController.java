@@ -162,11 +162,11 @@ public class MazeController implements Initializable {
         borderGrid[i][j].setStyle("-fx-border-color: " + border + "; -fx-background-color: " + fill + ";");
     }
 
-    private void buttonStateChange(boolean show)
+    private void buttonStateChange(boolean disable)
     {
-        pathButton.setDisable(show); mazeButton.setDisable(show);
-        intermediateButton.setDisable(show);
-        clearButton.setDisable(show);
+        pathButton.setDisable(disable); mazeButton.setDisable(disable);
+        intermediateButton.setDisable(disable);
+        clearButton.setDisable(disable);
     }
 
     public static void UpdateBorder(String color)
@@ -315,8 +315,36 @@ public class MazeController implements Initializable {
         if(currSD[2][0] != -1) PaintBlock(currSD[2][0], currSD[2][1], Constants.BORDER, Constants.INTERMEDIATE);
     }
 
-    @FXML void mazeActionEvent(ActionEvent event) {
-        System.out.println("Load Random Maze");
+    @FXML void mazeActionEvent(ActionEvent event)
+    {
+        System.out.println("LOAD RANDOM MAZE");
+
+        ArrayList<Cell> wallAr = ReadWrite.loadRandomMaze();
+        Collections.shuffle(wallAr);
+
+        buttonStateChange(true);
+        cancelButton.setDisable(true); clearButton.setDisable(true);
+
+        Thread thread = new Thread(() -> {
+            int wallPainted = 0;
+            for(Cell wall : wallAr) {
+                try {
+                    PaintBlock(wall.i, wall.j, Constants.BORDER, Constants.WALL);
+                    Thread.sleep(Constants.MAZE_TIME);
+                    wallPainted++;
+                } catch (Exception ignored) { }
+            }
+
+            if(wallPainted < wallAr.size()) { // If any wall is left
+                for(Cell x : wallAr) {
+                    PaintBlock(x.i, x.j, Constants.BORDER, Constants.WALL);
+                }
+            }
+        });
+        thread.start();
+
+        buttonStateChange(false);
+        cancelButton.setDisable(false); clearButton.setDisable(false);
     }
 
     @FXML void drawMazeActionEvent(ActionEvent event)

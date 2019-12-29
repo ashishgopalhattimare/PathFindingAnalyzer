@@ -2,6 +2,7 @@ package sample.testing;
 
 import sample.Constant.Cell;
 import sample.Constant.Constants;
+import sample.Maze.MazeGenerator;
 
 /**
  * Testing the distance between two points in a grid (shortest distance involving only diagonal and (vertical,horizontal)
@@ -12,10 +13,12 @@ public class Test {
     static Cell des;
     public static void main(String[] args) {
 
-        Cell curr = new Cell(8,28);
-        des = new Cell(6,25);
+        MazeGenerator.constructMaze();
 
-        System.out.println(calculateDistance(curr));
+//        Cell curr = new Cell(8,28);
+//        des = new Cell(6,25);
+//
+//        System.out.println(calculateDistance(curr));
     }
 
     private static int calculateDistance(Cell curr) {

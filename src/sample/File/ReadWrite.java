@@ -4,6 +4,7 @@ import sample.Constant.CellState;
 import sample.Constant.Constants;
 import sample.Constant.Cell;
 import sample.Constant.StateNumeric;
+import sample.Maze.MazeGenerator;
 import sample.MazeController;
 
 import java.io.*;
@@ -70,5 +71,30 @@ public class ReadWrite {
         }
         catch (Exception ignored) { }
         return null;
+    }
+
+    public static ArrayList<Cell> loadRandomMaze()
+    {
+        String maze = MazeGenerator.constructMaze();
+
+        ArrayList<Cell> wallAr = new ArrayList<>();
+        Cell curr;
+
+        for(int i = 0; i < Constants.ROW; i++) {
+            for(int j = 0; j < Constants.COL; j++) {
+
+                curr = MazeController.Grid[i][j];
+
+                if(curr.state != CellState.SOURCE && curr.state != CellState.TARGET) {
+                    MazeController.PaintBlock(i, j, Constants.BORDER, Constants.UNVISITED);
+
+                    curr.state = StateNumeric.GetNumeric(maze.charAt(i*Constants.ROW + j));
+                }
+                if(curr.state == CellState.WALL) {
+                    wallAr.add(new Cell(i, j));
+                }
+            }
+        }
+        return wallAr;
     }
 }
