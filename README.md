@@ -1,3 +1,4 @@
+
 # PathFinding Analyzer
 
 PathFinding Analyzer is a visualization tool which is focused on shortest path algorithms in Graph. The application has different algorithms which are designed for a 2D Grid, where the cost between the two consecutive cells is 1.
@@ -11,7 +12,9 @@ To run this application, use can click on this [*link*](https://github.com/ashis
 </p>
 <p align="center"> <i>Fig 1.0 Tutorial to the PathFinding Analyzer</i> </p>
 
+
 ## Shortest Path Algorithms
+
 1. **Breadth -First Search (BFS)**
 
 	[BFS](https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/tutorial/) is a unweighted graph traversal algorithm that starts the traversal from the source node and explores all the neighbouring nodes. It follows the principle of level order traversal, where it selects the nearest node and explore all the unexplored nodes.
@@ -44,7 +47,7 @@ To run this application, use can click on this [*link*](https://github.com/ashis
 On a map with many obstacles, pathfinding from points  AA  to  BB  can be difficult. A robot, for instance, without getting much other direction, will continue until it encounters an obstacle, as in the path-finding example to the left below.
 
 	However, the A* algorithm introduces a [heuristic](https://brilliant.org/wiki/heuristic/ "heuristic") into a regular graph-searching algorithm, essetially planning ahead at each step so a more optimal decision is made. With A*, a robot would instead find a path in a way similar to the diagram on the right below.
-
+	
 	A* is an extension of  [Dijkstra's algorithm](https://brilliant.org/wiki/dijkstras-short-path-finder/ "Dijkstra's algorithm")  with some characteristics of  [Breadth-First Search (BFS)](https://brilliant.org/wiki/breadth-first-search-bfs/ "breadth-first search (BFS)").
 
 	To know more about the A\* Algorithm, follow this [*link*](https://brilliant.org/wiki/a-star-search/).
@@ -65,3 +68,7 @@ On a map with many obstacles, pathfinding from points  AA  to  BB  can be diffic
 </p>
 <p align="center"> <i>Fig 1.3 Demo of the Greedy Best-First Search (GBFS) Algorithm</i> </p>
 
+
+## Maze Generator
+
+Besides the Path-Finding Algorithms, the **Maze Generation** has been implemented using **DFS Algorithm**.
