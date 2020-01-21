@@ -1,6 +1,10 @@
 
 # PathFinding Analyzer
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Platform](http://img.shields.io/badge/platform-desktop-lightgrey.svg?style=flat)]()
+[![Platform](https://img.shields.io/badge/Java-8.0-red.svg?style=flat)](https://java.com/en/download/faq/java8.xml/)
+
 PathFinding Analyzer is a visualization tool which is focused on shortest path algorithms in Graph. The application has different algorithms which are designed for a 2D Grid, where the cost between the two consecutive cells is 1.
 
 
